@@ -38,7 +38,7 @@
 
 set_global_assignment -name FAMILY "MAX II"
 set_global_assignment -name DEVICE EPM240T100C5
-set_global_assignment -name TOP_LEVEL_ENTITY mux_5x1
+set_global_assignment -name TOP_LEVEL_ENTITY FF_jk
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.0.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "12:13:10  SEPTEMBER 23, 2023"
 set_global_assignment -name LAST_QUARTUS_VERSION "18.0.0 Lite Edition"
@@ -57,3 +57,4 @@ set_global_assignment -name VERILOG_FILE demux_1x4.v
 set_global_assignment -name VERILOG_FILE mux_2x1.v
 set_global_assignment -name VERILOG_FILE mux_4x1.v
 set_global_assignment -name VERILOG_FILE mux_5x1.v
+set_global_assignment -name VERILOG_FILE FF_jk.v
