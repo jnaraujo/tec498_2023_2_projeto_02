@@ -97,3 +97,6 @@ set_location_assignment PIN_50 -to btn1
 set_location_assignment PIN_52 -to btn0
 set_location_assignment PIN_70 -to b
 set_location_assignment PIN_90 -to a
+set_global_assignment -name VERILOG_FILE seletor_mapa.v
+set_global_assignment -name VERILOG_FILE mux_8x1.v
+set_global_assignment -name VERILOG_FILE mux_64x8.v

@@ -25,12 +25,10 @@ module projeto(
 
   wire [2:0] contador; // contador de 0 até 4
 
-  // mapa de exemplo
-  assign mapa0 = 7'b0000100;
-  assign mapa1 = 7'b0001100;
-  assign mapa2 = 7'b1000101;
-  assign mapa3 = 7'b1110001;
-  assign mapa4 = 7'b1000011;
+  seletor_mapa seletor_mapa(
+    .sel({btn3, btn2, btn1, btn0}),
+    .mapa0(mapa0), .mapa1(mapa1), .mapa2(mapa2), .mapa3(mapa3), .mapa4(mapa4)
+  );
 
   assign enable = 1;
 
@@ -47,4 +45,37 @@ module projeto(
     .mapa0(mapa0), .mapa1(mapa1), .mapa2(mapa2), .mapa3(mapa3), .mapa4(mapa4)
   );
 
+endmodule
+
+module TB_Projeto();
+  reg ch0, ch1, ch2, ch3, ch4, ch5, ch6, ch7; // chaves
+  reg btn0, btn1, btn2, btn3; // botoes
+
+  wire d0, d1, d2, d3; // digitos do display
+  wire a, b, c, d, e, f, g, dp; // segmentos do display
+  wire l0, l1, l2, l3, l4, l5, l6; // linhas da matriz de leds
+  wire c0, c1, c2, c3, c4; // colunas da matriz de leds
+
+  reg clock_in; // clock
+
+  projeto projeto(
+    ch0, ch1, ch2, ch3, ch4, ch5, ch6, ch7,
+    btn0, btn1, btn2, btn3,
+    d0, d1, d2, d3,
+    a, b, c, d, e, f, g, dp,
+    l0, l1, l2, l3, l4, l5, l6,
+    c0, c1, c2, c3, c4,
+    clock_in
+  );
+
+  initial begin
+    clock_in = 0;
+    forever #10 clock_in = ~clock_in;
+  end
+
+  initial begin
+    ch0 = 0; ch1 = 0; ch2 = 0; ch3 = 0; ch4 = 0; ch5 = 0; ch6 = 0; ch7 = 0;
+    btn0 = 0; btn1 = 0; btn2 = 0; btn3 = 0;
+  end
+  
 endmodule
