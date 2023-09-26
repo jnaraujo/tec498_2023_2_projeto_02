@@ -19,9 +19,9 @@ module seletor_mapa(
   
   mux_64x8 m0(7'b0000100, 7'b1110000, 7'b1110111, 7'b0000111, 7'b0000111, 7'b1000000, 7'b0111000, 7'b1000000, sel, mapaTemp0);
   mux_64x8 m1(7'b0001100, 7'b0100000, 7'b1000010, 7'b0100001, 7'b0000010, 7'b1100000, 7'b0001001, 7'b1100111, sel, mapaTemp1);
-  mux_64x8 m2(7'b1000101, 7'b0100000, 7'b0100000, 7'b0111001, 7'b1000000, 7'b1000010, 7'b0010011, 7'b1000010, sel, mapaTemp2);
-  mux_64x8 m3(7'b1110001, 7'b1000010, 7'b0100000, 7'b0100011, 7'b1110001, 7'b0010010, 7'b0010001, 7'b0010010, sel, mapaTemp3);
-  mux_64x8 m4(7'b1000011, 7'b1110111, 7'b1110000, 7'b0000001, 7'b1000111, 7'b1110111, 7'b0111000, 7'b1110000, sel, mapaTemp4);
+  mux_64x8 m2(7'b1000101, 7'b0100000, 7'b0100000, 7'b0111000, 7'b1000000, 7'b1000010, 7'b0010011, 7'b1000010, sel, mapaTemp2);
+  mux_64x8 m3(7'b1110001, 7'b1000010, 7'b0100000, 7'b0100010, 7'b1110001, 7'b0010010, 7'b0010001, 7'b0010010, sel, mapaTemp3);
+  mux_64x8 m4(7'b1000011, 7'b1110111, 7'b1110000, 7'b0000111, 7'b1000111, 7'b1110111, 7'b0111000, 7'b1110000, sel, mapaTemp4);
   
   always @(posedge confirmar) begin
     if (enable) begin
@@ -53,7 +53,7 @@ module TB_Seletor_Mapa();
     confirmar = 0; // copia o valor do mapaTemp para o mapa
 
     sel = 010; #10; // mapaTemp0 = 1110111; mapaTemp1 = 1000010; mapaTemp2 = 0100000; mapaTemp3 = 0100000; mapaTemp4 = 1110000;
-    sel = 011; #10; // mapaTemp0 = 0000111; mapaTemp1 = 0100001; mapaTemp2 = 0111001; mapaTemp3 = 0100011; mapaTemp4 = 0000001;
+    sel = 011; #10; // mapaTemp0 = 0000111; mapaTemp1 = 0100001; mapaTemp2 = 0111000; mapaTemp3 = 0100010; mapaTemp4 = 0000111;
     sel = 100; confirmar = 1; #10; // mapaTemp0 = 0000111; mapaTemp1 = 0000010; mapaTemp2 = 1000000; mapaTemp3 = 1110001; mapaTemp4 = 1000111;
 
     confirmar = 0; // copia o valor do mapaTemp para o mapa
@@ -71,7 +71,7 @@ module TB_Seletor_Mapa();
     confirmar = 0;
 
     sel = 010; #10; // mapaTemp0 = 1110111; mapaTemp1 = 1000010; mapaTemp2 = 0100000; mapaTemp3 = 0100000; mapaTemp4 = 1110000;
-    sel = 011; #10; confirmar = 1 ;#10; // mapaTemp0 = 0000111; mapaTemp1 = 0100001; mapaTemp2 = 0111001; mapaTemp3 = 0100011; mapaTemp4 = 0000001;
+    sel = 011; #10; confirmar = 1 ;#10; // mapaTemp0 = 0000111; mapaTemp1 = 0100001; mapaTemp2 = 0111000; mapaTemp3 = 0100010; mapaTemp4 = 0000111;
 
     confirmar = 0;
 
