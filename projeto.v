@@ -26,10 +26,10 @@ module projeto(
   wire [2:0] contador; // contador de 0 até 4
 
   seletor_mapa seletor_mapa(
-    .sel({btn3, btn2, btn1, btn0}),
+    .sel({btn2, btn1, btn0}),
     .mapa0(mapa0), .mapa1(mapa1), .mapa2(mapa2), .mapa3(mapa3), .mapa4(mapa4)
   );
-
+  
   assign enable = 1;
 
   divisor_freq divisor_freq(clock_in, clock_out);
