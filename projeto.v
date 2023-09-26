@@ -20,12 +20,12 @@ module projeto(
   wire [17:0] clock_out; // clock dividido
 
   wire [6:0] matriz0, matriz1, matriz2, matriz3, matriz4; // mapas de bits da matriz de leds
-  wire [6:0] mapaTemp0, mapaTemp1, mapaTemp2, mapaTemp3, mapaTemp4; // mapa temporario selecionado pelo jogador na preparacao
   wire [6:0] mapa0, mapa1, mapa2, mapa3, mapa4; // mapa final do jogo
 
   wire enable; // habilita/desabilita matriz de leds
-
   wire DESLIGADO, PREPARACAO, ATAQUE; // estados do jogo
+
+  divisor_freq divisor_freq(clock_in, clock_out);
 
   decodificadorDeStatus decodificadorDeStatus(
     .A(ch7), .B(ch6),
@@ -37,11 +37,9 @@ module projeto(
   seletor_mapa seletor_mapa(
     .sel({btn2, btn1, btn0}),
     .confirmar(btn3), .enable(PREPARACAO),
-    .mapaTemp0(mapaTemp0), .mapaTemp1(mapaTemp1), .mapaTemp2(mapaTemp2), .mapaTemp3(mapaTemp3), .mapaTemp4(mapaTemp4),
+    .mapaTemp0(matriz0), .mapaTemp1(matriz1), .mapaTemp2(matriz2), .mapaTemp3(matriz3), .mapaTemp4(matriz4),
     .mapa0(mapa0), .mapa1(mapa1), .mapa2(mapa2), .mapa3(mapa3), .mapa4(mapa4)
   );
-
-  divisor_freq divisor_freq(clock_in, clock_out);
 
   matriz_leds matriz_leds(
     .l0(l0), .l1(l1), .l2(l2), .l3(l3), .l4(l4), .l5(l5), .l6(l6),
@@ -49,7 +47,7 @@ module projeto(
     // clock de ~ 762 Hz
     // pois dentro do modulo matriz_leds tem um divisor de frequencia secundario (contador)
     .clock(clock_out[15]), .enable(enable),
-    .mapa0(mapa0), .mapa1(mapa1), .mapa2(mapa2), .mapa3(mapa3), .mapa4(mapa4)
+    .mapa0(matriz0), .mapa1(matriz1), .mapa2(matriz2), .mapa3(matriz3), .mapa4(matriz4)
   );
 
 endmodule
