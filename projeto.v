@@ -36,8 +36,9 @@ module projeto(
 
   divisor_freq divisor_freq(clock_in, clock_out);
 
-  // contador de 0 até 4 - clock de 190Hz
-  contador contador_04(clock_out[17], contador);
+  // contador de 0 até 4 - clock de ~ 762 Hz
+  // contador funciona como um divisor de frequencia secundario
+  contador contador_04(clock_out[15], contador);
 
   matriz_leds matriz_leds(
     .l0(l0), .l1(l1), .l2(l2), .l3(l3), .l4(l4), .l5(l5), .l6(l6),
