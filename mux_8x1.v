@@ -7,7 +7,7 @@ module mux_8x1(
 
   output out;
 
-  wire w0, w1, w2, w3, w4, w5, w6, w7;
+  wire w0, w1;
 
   mux_4x1 m0(a, b, c, d, sel[1:0], w0);
   mux_4x1 m1(e, f, g, h, sel[1:0], w1);
