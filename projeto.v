@@ -19,18 +19,30 @@ module projeto(
   input clock_in; // clock
   wire [17:0] clock_out; // clock dividido
 
-  wire [6:0] mapa0, mapa1, mapa2, mapa3, mapa4; // mapas de bits da matriz de leds
+  wire [6:0] matriz0, matriz1, matriz2, matriz3, matriz4; // mapas de bits da matriz de leds
+  wire [6:0] mapaS0, mapaS1, mapaS2, mapaS3, mapaS4; // mapa selecionado pelo jogador na preparacao
+  wire [6:0] mapa0, mapa1, mapa2, mapa3, mapa4; // mapa final do jogo
 
   wire enable; // habilita/desabilita matriz de leds
 
-  wire [2:0] contador; // contador de 0 até 4
+  wire DESLIGADO, PREPARACAO, ATAQUE; // estados do jogo
+
+  decodificadorDeStatus decodificadorDeStatus(
+    .A(ch0), .B(ch1),
+    .DESLIGADO(DESLIGADO), .PREPARACAO(PREPARACAO), .ATAQUE(ATAQUE)
+  );
 
   seletor_mapa seletor_mapa(
     .sel({btn2, btn1, btn0}),
-    .mapa0(mapa0), .mapa1(mapa1), .mapa2(mapa2), .mapa3(mapa3), .mapa4(mapa4)
+    .mapa0(mapaS0), .mapa1(mapaS1), .mapa2(mapaS2), .mapa3(mapaS3), .mapa4(mapaS4)
   );
   
-  assign enable = 1;
+  assign enable = PREPARACAO | ATAQUE;
+
+  decodificadorDeStatus decodificadorDeStatus(
+    .A(ch7), .B(ch6),
+    .DESLIGADO(DESLIGADO), .PREPARACAO(PREPARACAO), .ATAQUE(ATAQUE)
+  );
 
   divisor_freq divisor_freq(clock_in, clock_out);
 

@@ -38,7 +38,7 @@
 
 set_global_assignment -name FAMILY "MAX II"
 set_global_assignment -name DEVICE EPM240T100C5
-set_global_assignment -name TOP_LEVEL_ENTITY projeto
+set_global_assignment -name TOP_LEVEL_ENTITY decodificadorDeStatus
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.0.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "12:13:10  SEPTEMBER 23, 2023"
 set_global_assignment -name LAST_QUARTUS_VERSION "18.0.0 Lite Edition"
@@ -100,3 +100,4 @@ set_location_assignment PIN_90 -to a
 set_global_assignment -name VERILOG_FILE seletor_mapa.v
 set_global_assignment -name VERILOG_FILE mux_8x1.v
 set_global_assignment -name VERILOG_FILE mux_64x8.v
+set_global_assignment -name VERILOG_FILE decodificadorDeStatus.v
