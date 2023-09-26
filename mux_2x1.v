@@ -3,7 +3,13 @@ module mux_2x1(a, b, sel, out);
 
 	output out;
 
-	assign out = ~sel & a | sel & b;
+	wire w0, w1;
+
+	and and0(w0, a, ~sel);
+	and and1(w1, b, sel);
+
+	or or0(out, w0, w1);
+	
 endmodule
 
 module TB_mux_2x1();

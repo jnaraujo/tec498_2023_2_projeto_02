@@ -5,13 +5,13 @@ module mux_4x1(a, b, c, d, sel, out);
   output out;
 
   wire w0, w1, w2, w3;
-  
-  assign w0 = a & ~sel[1] & ~sel[0];
-  assign w1 = b & ~sel[1] & sel[0];
-  assign w2 = c & sel[1] & ~sel[0];
-  assign w3 = d & sel[1] & sel[0];
 
-  assign out = w0 | w1 | w2 | w3;
+  and and0(w0, a, ~sel[1], ~sel[0]);
+  and and1(w1, b, ~sel[1], sel[0]);
+  and and2(w2, c, sel[1], ~sel[0]);
+  and and3(w3, d, sel[1], sel[0]);
+
+  or or0(out, w0, w1, w2, w3);
 endmodule
 
 module TB_mux_4x1();

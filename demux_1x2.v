@@ -2,8 +2,8 @@ module demux_1x2(Sel, E, Out2, Out1);
   input Sel, E;
   output Out2, Out1;
 
-  assign Out2 = Sel & E;
-  assign Out1 = ~Sel & E;
+  and and1(Out2, Sel, E);
+  and and2(Out1, ~Sel, E);
 endmodule
 
 module TB_demux_1x2;
