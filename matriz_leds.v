@@ -1,15 +1,18 @@
 module matriz_leds(
   l0, l1, l2, l3, l4, l5, l6,
   c0, c1, c2, c3, c4,
-  contador, enable,
+  clock, enable,
   mapa0, mapa1, mapa2, mapa3, mapa4
 );
-  output l0, l1, l2, l3, l4, l5, l6, c0, c1, c2, c3, c4;
-  input [2:0] contador;
-  input [6:0] mapa0, mapa1, mapa2, mapa3, mapa4;
-  input enable;
+  output l0, l1, l2, l3, l4, l5, l6, c0, c1, c2, c3, c4; // linhas e colunas da matriz de leds
+  input clock; // clock de ~ 762 Hz
+  input [6:0] mapa0, mapa1, mapa2, mapa3, mapa4; // mapas de bits da matriz de leds
+  input enable; // habilita/desabilita matriz de leds
 
-  wire w_l0, w_l1, w_l2, w_l3, w_l4, w_l5, w_l6;
+  wire [2:0] contador; // contador de 0 a 4
+  wire w_l0, w_l1, w_l2, w_l3, w_l4, w_l5, w_l6; // linhas da matriz de leds
+
+  contador contador_04(clock, contador);
 
   // demux para ativar uma coluna por vez
   demux_1x5 d0(.Sel(contador), .E(enable), .Out5(c4), .Out4(c3), .Out3(c2), .Out2(c1), .Out1(c0));
