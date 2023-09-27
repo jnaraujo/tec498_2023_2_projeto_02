@@ -102,3 +102,4 @@ set_global_assignment -name VERILOG_FILE mux_64x8.v
 set_global_assignment -name VERILOG_FILE decodificadorDeStatus.v
 set_global_assignment -name VERILOG_FILE gerenciador_de_ataque.v
 set_global_assignment -name VERILOG_FILE mux_16x8.v
+set_global_assignment -name VERILOG_FILE FF_jk.v
