@@ -4,12 +4,14 @@ module mux_5x1(a, b, c, d, e, sel, out);
 
   output out;
 
-  wire w0, w1;
+  wire w0, w1, w2;
 
-  mux_4x1 m0(a, b, c, d, sel[1:0], w0);
-  mux_2x1 m1(e, 1'b0, sel[2], w1);
+  mux_2x1 m1(a, b, sel[0], w0);
+  mux_2x1 m2(c, d, sel[0], w1);
 
-  mux_2x1 m2(w0, w1, sel[2], out);
+  mux_2x1 m3(w0, w1, sel[1], w2);
+
+  mux_2x1 m4(w2, e, sel[2], out);
 endmodule
 
 module TB_mux_5x1();
@@ -39,10 +41,10 @@ module TB_mux_5x1();
     sel = 3'b011; a = 1'b1; b = 1'b1; c = 1'b1; d = 1'b0; e = 1'b1; #10; // out = 0
     sel = 3'b100; a = 1'b1; b = 1'b1; c = 1'b1; d = 1'b1; e = 1'b0; #10; // out = 0
 
-    // casos invalidos
-    sel = 3'b101; a = 1'b1; b = 1'b1; c = 1'b1; d = 1'b1; e = 1'b1; #10; // out = 0
-    sel = 3'b110; a = 1'b1; b = 1'b1; c = 1'b1; d = 1'b1; e = 1'b1; #10; // out = 0
-    sel = 3'b111; a = 1'b1; b = 1'b1; c = 1'b1; d = 1'b1; e = 1'b1; #10; // out = 0
+    // casos invalidos - out = e
+    sel = 3'b101; a = 1'b1; b = 1'b1; c = 1'b1; d = 1'b1; e = 1'b1; #10; // out = 1
+    sel = 3'b110; a = 1'b1; b = 1'b1; c = 1'b1; d = 1'b1; e = 1'b1; #10; // out = 1
+    sel = 3'b111; a = 1'b1; b = 1'b1; c = 1'b1; d = 1'b1; e = 1'b1; #10; // out = 1
     
   end
 endmodule
