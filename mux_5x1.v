@@ -7,7 +7,7 @@ module mux_5x1(a, b, c, d, e, sel, out);
   wire w0, w1;
 
   mux_4x1 m0(a, b, c, d, sel[1:0], w0);
-  mux_2x1 m1(e, 0, sel[2], w1);
+  mux_2x1 m1(e, 1'b0, sel[2], w1);
 
   mux_2x1 m2(w0, w1, sel[2], out);
 endmodule
