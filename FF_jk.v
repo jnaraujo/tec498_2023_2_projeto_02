@@ -30,10 +30,10 @@ module TB_FF_jk();
   reg j, k, clk, reset;
   wire q;
 
-  FF_jk FF_jk(j, k, clk, q);
+  FF_jk FF_jk(j, k, reset, clk, q);
 
   initial begin
-    reset = 1'b0; #10;
+    reset = 1'b0;
 
     j = 1'b0; k = 1'b0; clk = 1'b0; #10; // q = 0
     j = 1'b0; k = 1'b0; clk = 1'b1; #10; // q = 0
