@@ -2,8 +2,7 @@ module seletor_mapa(
   sel, confirmar, enable,
   mapa4, mapa3, mapa2, mapa1, mapa0,
   mapaTemp4, mapaTemp3, mapaTemp2, mapaTemp1, mapaTemp0
-  
-  );
+);
   input [2:0] sel;
   input confirmar, enable;
   output reg [6:0] mapa0, mapa1, mapa2, mapa3, mapa4; // mapa final do jogo
