@@ -16,8 +16,8 @@ module TB_DecodificadorDeStatus();
   decodificadorDeStatus decodificadorDeStatus(A, B, DESLIGADO, PREPARACAO, ATAQUE);
 
   initial begin
-    A = 0; B = 0; #10; // DESLIGADO = 1; PREPARACAO = 0; ATAQUE = 0;
-    A = 1; B = 0; #10; // DESLIGADO = 0; PREPARACAO = 1; ATAQUE = 0;
-    A = 1; B = 1; #10; // DESLIGADO = 0; PREPARACAO = 0; ATAQUE = 1;
+    A = 1'b0; B = 1'b0; #10; // DESLIGADO = 1; PREPARACAO = 0; ATAQUE = 0;
+    A = 1'b1; B = 1'b0; #10; // DESLIGADO = 0; PREPARACAO = 1; ATAQUE = 0;
+    A = 1'b1; B = 1'b1; #10; // DESLIGADO = 0; PREPARACAO = 0; ATAQUE = 1;
   end
 endmodule

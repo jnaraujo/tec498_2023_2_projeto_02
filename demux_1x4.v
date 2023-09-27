@@ -21,14 +21,14 @@ module TB_demux_1x4();
 	demux_1x4 demux_1x4(Sel, E, Out4, Out3, Out2, Out1);
 
 	initial begin
-		Sel = 2'b00; E = 1; #10; // Out1 = 1, Out2 = 0, Out3 = 0, Out4 = 0
-		Sel = 2'b01; E = 1; #10; // Out1 = 0, Out2 = 1, Out3 = 0, Out4 = 0
-		Sel = 2'b10; E = 1; #10; // Out1 = 0, Out2 = 0, Out3 = 1, Out4 = 0
-		Sel = 2'b11; E = 1; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 1
+		Sel = 2'b00; E = 1'b1; #10; // Out1 = 1, Out2 = 0, Out3 = 0, Out4 = 0
+		Sel = 2'b01; E = 1'b1; #10; // Out1 = 0, Out2 = 1, Out3 = 0, Out4 = 0
+		Sel = 2'b10; E = 1'b1; #10; // Out1 = 0, Out2 = 0, Out3 = 1, Out4 = 0
+		Sel = 2'b11; E = 1'b1; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 1
 
-		Sel = 2'b00; E = 0; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 0
-		Sel = 2'b01; E = 0; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 0
-		Sel = 2'b10; E = 0; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 0
-		Sel = 2'b11; E = 0; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 0
+		Sel = 2'b00; E = 1'b0; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 0
+		Sel = 2'b01; E = 1'b0; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 0
+		Sel = 2'b10; E = 1'b0; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 0
+		Sel = 2'b11; E = 1'b0; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 0
 	end
 endmodule

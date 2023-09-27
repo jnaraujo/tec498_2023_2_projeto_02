@@ -63,28 +63,28 @@ module TB_gerenciador_de_ataque();
   .confirmar(confirmar), .mapa0(mapa0), .mapa1(mapa1), .mapa2(mapa2), .mapa3(mapa3), .mapa4(mapa4), .matriz0(matriz0), .matriz1(matriz1), .matriz2(matriz2), .matriz3(matriz3), .matriz4(matriz4));
 
   initial begin
-    enable = 1;
-    confirmar = 0;
+    enable = 1'b1;
+    confirmar = 1'b0;
 
-    coordColuna = 000;  coordLinha = 000; confirmar = 1; #10;
-    confirmar = 0; #10;
-    coordColuna = 000;  coordLinha = 001; confirmar = 1; #10;
-    confirmar = 0; #10;
+    coordColuna = 3'b000;  coordLinha = 3'b000; confirmar = 1'b1; #10;
+    confirmar = 1'b0; #10;
+    coordColuna = 3'b000;  coordLinha = 3'b001; confirmar = 1'b1; #10;
+    confirmar = 1'b0; #10;
 
-    coordColuna = 001;  coordLinha = 101; confirmar = 1; #10;
-    confirmar = 0; #10;
+    coordColuna = 3'b001;  coordLinha = 3'b101; confirmar = 1'b1; #10;
+    confirmar = 1'b0; #10;
 
-    coordColuna = 011;  coordLinha = 101; confirmar = 1; #10;
-    confirmar = 0; #10;
+    coordColuna = 3'b011;  coordLinha = 3'b101; confirmar = 1'b1; #10;
+    confirmar = 1'b0; #10;
 
-    coordColuna = 100;  coordLinha = 110; confirmar = 1; #10;
-    confirmar = 0; #10;
+    coordColuna = 3'b100;  coordLinha = 3'b110; confirmar = 1'b1; #10;
+    confirmar = 1'b0; #10;
 
 
-    enable = 0; #10;
-    enable = 1; #10;
+    enable = 1'b0; #10;
+    enable = 1'b1; #10;
 
-    coordColuna = 000;  coordLinha = 000; confirmar = 1; #10;
+    coordColuna = 3'b000;  coordLinha = 3'b000; confirmar = 1'b1; #10;
   end
 
 endmodule

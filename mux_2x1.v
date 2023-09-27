@@ -19,13 +19,13 @@ module TB_mux_2x1();
 	mux_2x1 mux_2x1(a, b, sel, out);
 
 	initial begin
-		sel = 0; a = 0; b = 0; #10; // out = 0
-		sel = 0; a = 0; b = 1; #10; // out = 0
-		sel = 0; a = 1; b = 0; #10; // out = 1
-		sel = 0; a = 1; b = 1; #10; // out = 1
-		sel = 1; a = 0; b = 0; #10; // out = 0
-		sel = 1; a = 0; b = 1; #10; // out = 1
-		sel = 1; a = 1; b = 0; #10; // out = 0
-		sel = 1; a = 1; b = 1; #10; // out = 1
+		sel = 1'b0; a = 1'b0; b = 1'b0; #10; // out = 0
+		sel = 1'b0; a = 1'b0; b = 1'b1; #10; // out = 0
+		sel = 1'b0; a = 1'b1; b = 1'b0; #10; // out = 1
+		sel = 1'b0; a = 1'b1; b = 1'b1; #10; // out = 1
+		sel = 1'b1; a = 1'b0; b = 1'b0; #10; // out = 0
+		sel = 1'b1; a = 1'b0; b = 1'b1; #10; // out = 1
+		sel = 1'b1; a = 1'b1; b = 1'b0; #10; // out = 0
+		sel = 1'b1; a = 1'b1; b = 1'b1; #10; // out = 1
 	end
 endmodule

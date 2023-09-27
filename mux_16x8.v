@@ -27,7 +27,7 @@ module TB_mux_16x8();
     mapa0 = 7'b1000001;
     mapa1 = 7'b1100011;
 
-    sel = 0; #10; // out = 1000001
-    sel = 1; #10; // out = 1100011
+    sel = 1'b0; #10; // out = 1000001
+    sel = 1'b1; #10; // out = 1100011
   end
 endmodule

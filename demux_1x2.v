@@ -13,9 +13,9 @@ module TB_demux_1x2;
   demux_1x2 demux_1x2(Sel, E, Out2, Out1);
 
   initial begin
-    Sel = 0; E = 0; #10; // Out2 = 0, Out1 = 0
-    Sel = 0; E = 1; #10; // Out2 = 0, Out1 = 1
-    Sel = 1; E = 0; #10; // Out2 = 0, Out1 = 0
-    Sel = 1; E = 1; #10; // Out2 = 1, Out1 = 0
+    Sel = 1'b0; E = 1'b0; #10; // Out2 = 0, Out1 = 0
+    Sel = 1'b0; E = 1'b1; #10; // Out2 = 0, Out1 = 1
+    Sel = 1'b1; E = 1'b0; #10; // Out2 = 0, Out1 = 0
+    Sel = 1'b1; E = 1'b1; #10; // Out2 = 1, Out1 = 0
   end
 endmodule

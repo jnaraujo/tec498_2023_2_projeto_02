@@ -43,36 +43,36 @@ module TB_Seletor_Mapa();
   seletor_mapa seletor_mapa(.sel(sel), .enable(enable), .confirmar(confirmar), .mapa0(mapa0), .mapa1(mapa1), .mapa2(mapa2), .mapa3(mapa3), .mapa4(mapa4), .mapaTemp0(mapaTemp0), .mapaTemp1(mapaTemp1), .mapaTemp2(mapaTemp2), .mapaTemp3(mapaTemp3), .mapaTemp4(mapaTemp4));
 
   initial begin
-    confirmar = 0;
-    enable = 1;
+    confirmar = 1'b0;
+    enable = 1'b1;
 
-    sel = 000; #10; // mapaTemp0 = 0000100; mapaTemp1 = 0001100; mapaTemp2 = 1000101; mapaTemp3 = 1110001; mapaTemp4 = 1000011;
-    sel = 001; confirmar = 1 ;#10; // mapaTemp0 = 1110000; mapaTemp1 = 0100000; mapaTemp2 = 0100000; mapaTemp3 = 1000010; mapaTemp4 = 1110111;
+    sel = 3'b000; #10; // mapaTemp0 = 0000100; mapaTemp1 = 0001100; mapaTemp2 = 1000101; mapaTemp3 = 1110001; mapaTemp4 = 1000011;
+    sel = 3'b001; confirmar = 1'b1 ;#10; // mapaTemp0 = 1110000; mapaTemp1 = 0100000; mapaTemp2 = 0100000; mapaTemp3 = 1000010; mapaTemp4 = 1110111;
 
-    confirmar = 0; // copia o valor do mapaTemp para o mapa
+    confirmar = 1'b0; // copia o valor do mapaTemp para o mapa
 
-    sel = 010; #10; // mapaTemp0 = 1110111; mapaTemp1 = 1000010; mapaTemp2 = 0100000; mapaTemp3 = 0100000; mapaTemp4 = 1110000;
-    sel = 011; #10; // mapaTemp0 = 0000111; mapaTemp1 = 0100001; mapaTemp2 = 0111000; mapaTemp3 = 0100010; mapaTemp4 = 0000111;
-    sel = 100; confirmar = 1; #10; // mapaTemp0 = 0000111; mapaTemp1 = 0000010; mapaTemp2 = 1000000; mapaTemp3 = 1110001; mapaTemp4 = 1000111;
+    sel = 3'b010; #10; // mapaTemp0 = 1110111; mapaTemp1 = 1000010; mapaTemp2 = 0100000; mapaTemp3 = 0100000; mapaTemp4 = 1110000;
+    sel = 3'b011; #10; // mapaTemp0 = 0000111; mapaTemp1 = 0100001; mapaTemp2 = 0111000; mapaTemp3 = 0100010; mapaTemp4 = 0000111;
+    sel = 3'b100; confirmar = 1'b1; #10; // mapaTemp0 = 0000111; mapaTemp1 = 0000010; mapaTemp2 = 1000000; mapaTemp3 = 1110001; mapaTemp4 = 1000111;
 
-    confirmar = 0; // copia o valor do mapaTemp para o mapa
+    confirmar = 1'b0; // copia o valor do mapaTemp para o mapa
 
-    sel = 101; #10; // mapaTemp0 = 1000000; mapaTemp1 = 1100000; mapaTemp2 = 1000010; mapaTemp3 = 0010010; mapaTemp4 = 1110111;
-    sel = 110; #10; // mapaTemp0 = 0111000; mapaTemp1 = 0001001; mapaTemp2 = 0010011; mapaTemp3 = 0010001; mapaTemp4 = 0111000;
-    sel = 111; confirmar = 1; #10; // mapaTemp0 = 1000000; mapaTemp1 = 1100111; mapaTemp2 = 1000010; mapaTemp3 = 0010010; mapaTemp4 = 1110000;
+    sel = 3'b101; #10; // mapaTemp0 = 1000000; mapaTemp1 = 1100000; mapaTemp2 = 1000010; mapaTemp3 = 0010010; mapaTemp4 = 1110111;
+    sel = 3'b110; #10; // mapaTemp0 = 0111000; mapaTemp1 = 0001001; mapaTemp2 = 0010011; mapaTemp3 = 0010001; mapaTemp4 = 0111000;
+    sel = 3'b111; confirmar = 1'b1; #10; // mapaTemp0 = 1000000; mapaTemp1 = 1100111; mapaTemp2 = 1000010; mapaTemp3 = 0010010; mapaTemp4 = 1110000;
 
-    confirmar = 0; // copia o valor do mapaTemp para o mapa
+    confirmar = 1'b0; // copia o valor do mapaTemp para o mapa
 
     // testar com enable = 0
     enable = 0;
-    sel = 001; #10; confirmar = 1 ;#10; // mapaTemp0 = 1110000; mapaTemp1 = 0100000; mapaTemp2 = 0100000; mapaTemp3 = 1000010; mapaTemp4 = 1110111;
+    sel = 3'b001; #10; confirmar = 1'b1 ;#10; // mapaTemp0 = 1110000; mapaTemp1 = 0100000; mapaTemp2 = 0100000; mapaTemp3 = 1000010; mapaTemp4 = 1110111;
 
-    confirmar = 0;
+    confirmar = 1'b0;
 
-    sel = 010; #10; // mapaTemp0 = 1110111; mapaTemp1 = 1000010; mapaTemp2 = 0100000; mapaTemp3 = 0100000; mapaTemp4 = 1110000;
-    sel = 011; #10; confirmar = 1 ;#10; // mapaTemp0 = 0000111; mapaTemp1 = 0100001; mapaTemp2 = 0111000; mapaTemp3 = 0100010; mapaTemp4 = 0000111;
+    sel = 3'b010; #10; // mapaTemp0 = 1110111; mapaTemp1 = 1000010; mapaTemp2 = 0100000; mapaTemp3 = 0100000; mapaTemp4 = 1110000;
+    sel = 3'b011; #10; confirmar = 1'b1 ;#10; // mapaTemp0 = 0000111; mapaTemp1 = 0100001; mapaTemp2 = 0111000; mapaTemp3 = 0100010; mapaTemp4 = 0000111;
 
-    confirmar = 0;
+    confirmar = 1'b0;
 
 
 

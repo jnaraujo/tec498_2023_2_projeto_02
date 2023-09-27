@@ -23,7 +23,7 @@ module TB_DivisorFreq();
   divisor_freq divisor_freq(clock_in, clock_out);
 
   initial begin
-    clock_in = 0;
+    clock_in = 1'b0;
     forever #10 clock_in = ~clock_in;
   end
 

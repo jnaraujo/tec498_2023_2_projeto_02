@@ -19,21 +19,21 @@ module TB_demux_1x5();
 	demux_1x5 demux_1x5(Sel, E, Out5, Out4, Out3, Out2, Out1);
 
 	initial begin
-		Sel = 3'b000; E = 1; #10; // Out1 = 1, Out2 = 0, Out3 = 0, Out4 = 0, Out5 = 0
-		Sel = 3'b001; E = 1; #10; // Out1 = 0, Out2 = 1, Out3 = 0, Out4 = 0, Out5 = 0
-		Sel = 3'b010; E = 1; #10; // Out1 = 0, Out2 = 0, Out3 = 1, Out4 = 0, Out5 = 0
-		Sel = 3'b011; E = 1; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 1, Out5 = 0
-		Sel = 3'b100; E = 1; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 0, Out5 = 1
+		Sel = 3'b000; E = 1'b1; #10; // Out1 = 1, Out2 = 0, Out3 = 0, Out4 = 0, Out5 = 0
+		Sel = 3'b001; E = 1'b1; #10; // Out1 = 0, Out2 = 1, Out3 = 0, Out4 = 0, Out5 = 0
+		Sel = 3'b010; E = 1'b1; #10; // Out1 = 0, Out2 = 0, Out3 = 1, Out4 = 0, Out5 = 0
+		Sel = 3'b011; E = 1'b1; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 1, Out5 = 0
+		Sel = 3'b100; E = 1'b1; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 0, Out5 = 1
 
-		Sel = 3'b000; E = 0; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 0, Out5 = 0
-		Sel = 3'b001; E = 0; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 0, Out5 = 0
-		Sel = 3'b010; E = 0; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 0, Out5 = 0
-		Sel = 3'b011; E = 0; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 0, Out5 = 0
-		Sel = 3'b100; E = 0; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 0, Out5 = 0
+		Sel = 3'b000; E = 1'b0; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 0, Out5 = 0
+		Sel = 3'b001; E = 1'b0; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 0, Out5 = 0
+		Sel = 3'b010; E = 1'b0; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 0, Out5 = 0
+		Sel = 3'b011; E = 1'b0; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 0, Out5 = 0
+		Sel = 3'b100; E = 1'b0; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 0, Out5 = 0
 
 		// casos inválidos
-		Sel = 3'b101; E = 1; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 0, Out5 = 0
-		Sel = 3'b110; E = 1; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 0, Out5 = 0
-		Sel = 3'b111; E = 1; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 0, Out5 = 0
+		Sel = 3'b101; E = 1'b1; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 0, Out5 = 0
+		Sel = 3'b110; E = 1'b1; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 0, Out5 = 0
+		Sel = 3'b111; E = 1'b1; #10; // Out1 = 0, Out2 = 0, Out3 = 0, Out4 = 0, Out5 = 0
 	end
 endmodule

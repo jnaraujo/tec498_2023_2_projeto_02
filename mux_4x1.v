@@ -23,20 +23,20 @@ module TB_mux_4x1();
   mux_4x1 mux_4x1(a, b, c, d, sel, out);
 
   initial begin
-    sel = 00; a = 1; b = 0; c = 0; d = 0; #10; // out = 1
-    sel = 01; a = 0; b = 1; c = 0; d = 0; #10; // out = 1
-    sel = 10; a = 0; b = 0; c = 1; d = 0; #10; // out = 1
-    sel = 11; a = 0; b = 0; c = 0; d = 1; #10; // out = 1
+    sel = 2'b00; a = 1'b1; b = 1'b0; c = 1'b0; d = 1'b0; #10; // out = 1
+    sel = 2'b01; a = 1'b0; b = 1'b1; c = 1'b0; d = 1'b0; #10; // out = 1
+    sel = 2'b10; a = 1'b0; b = 1'b0; c = 1'b1; d = 1'b0; #10; // out = 1
+    sel = 2'b11; a = 1'b0; b = 1'b0; c = 1'b0; d = 1'b1; #10; // out = 1
 
-    sel = 00; a = 0; b = 0; c = 0; d = 0; #10; // out = 0
-    sel = 01; a = 0; b = 0; c = 0; d = 0; #10; // out = 0
-    sel = 10; a = 0; b = 0; c = 0; d = 0; #10; // out = 0
-    sel = 11; a = 0; b = 0; c = 0; d = 0; #10; // out = 0
+    sel = 2'b00; a = 1'b0; b = 1'b0; c = 1'b0; d = 1'b0; #10; // out = 0
+    sel = 2'b01; a = 1'b0; b = 1'b0; c = 1'b0; d = 1'b0; #10; // out = 0
+    sel = 2'b10; a = 1'b0; b = 1'b0; c = 1'b0; d = 1'b0; #10; // out = 0
+    sel = 2'b11; a = 1'b0; b = 1'b0; c = 1'b0; d = 1'b0; #10; // out = 0
 
-    sel = 00; a = 0; b = 1; c = 1; d = 1; #10; // out = 0
-    sel = 01; a = 1; b = 0; c = 1; d = 1; #10; // out = 0
-    sel = 10; a = 1; b = 1; c = 0; d = 1; #10; // out = 0
-    sel = 11; a = 1; b = 1; c = 1; d = 0; #10; // out = 0
+    sel = 2'b00; a = 1'b0; b = 1'b1; c = 1'b1; d = 1'b1; #10; // out = 0
+    sel = 2'b01; a = 1'b1; b = 1'b0; c = 1'b1; d = 1'b1; #10; // out = 0
+    sel = 2'b10; a = 1'b1; b = 1'b1; c = 1'b0; d = 1'b1; #10; // out = 0
+    sel = 2'b11; a = 1'b1; b = 1'b1; c = 1'b1; d = 1'b0; #10; // out = 0
   end
  endmodule
  
