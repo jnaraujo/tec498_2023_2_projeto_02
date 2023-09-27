@@ -57,7 +57,6 @@ set_global_assignment -name VERILOG_FILE demux_1x4.v
 set_global_assignment -name VERILOG_FILE mux_2x1.v
 set_global_assignment -name VERILOG_FILE mux_4x1.v
 set_global_assignment -name VERILOG_FILE mux_5x1.v
-set_global_assignment -name VERILOG_FILE FF_jk.v
 set_global_assignment -name VERILOG_FILE matriz_leds.v
 set_global_assignment -name VERILOG_FILE divisor_freq.v
 set_location_assignment PIN_89 -to l6

@@ -17,7 +17,7 @@ module contador(clock, S);
 		if (S == 3'b100)
 			S <= 3'b000;
 		else
-			S <= S + 1;
+			S <= S + 1'b1;
 	end
 
 endmodule
@@ -30,17 +30,17 @@ module TB_contador;
 	contador contador(clock, S);
 
 	initial begin
-		clock = 0; #10; // S = 000
-		clock = 1; #10; // S = 001
-		clock = 0; #10; // S = 001
-		clock = 1; #10; // S = 010
-		clock = 0; #10; // S = 010
-		clock = 1; #10; // S = 011
-		clock = 0; #10; // S = 011
-		clock = 1; #10; // S = 100
-		clock = 0; #10; // S = 100
-		clock = 1; #10; // S = 000
-		clock = 0; #10; // S = 000
-		clock = 1; #10; // S = 001
+		clock = 1'b0; #10; // S = 000
+		clock = 1'b1; #10; // S = 001
+		clock = 1'b0; #10; // S = 001
+		clock = 1'b1; #10; // S = 010
+		clock = 1'b0; #10; // S = 010
+		clock = 1'b1; #10; // S = 011
+		clock = 1'b0; #10; // S = 011
+		clock = 1'b1; #10; // S = 100
+		clock = 1'b0; #10; // S = 100
+		clock = 1'b1; #10; // S = 000
+		clock = 1'b0; #10; // S = 000
+		clock = 1'b1; #10; // S = 001
 	end
 endmodule
