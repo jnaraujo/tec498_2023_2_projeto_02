@@ -1,7 +1,8 @@
 module FF_jk(
-  j, k, clock, q
+  j, k, reset, clock, q
 );
   input j, k, clock;
+  input reset;
   output q;
 
   reg q;
@@ -10,23 +11,30 @@ module FF_jk(
     q = 1'b0;
   end
 
-  always @(posedge clock) begin
-    case ({j, k})
-      2'b00: q <= q;
-      2'b01: q <= 1'b0;
-      2'b10: q <= 1'b1;
-      2'b11: q <= ~q;
-    endcase
+  always @(posedge clock or posedge reset) begin
+    if (reset) begin
+      q <= 1'b0;
+    end else begin
+      if (j & ~k) begin
+        q <= 1'b1;
+      end else if (~j & k) begin
+        q <= 1'b0;
+      end else if (j & k) begin
+        q <= ~q;
+      end
+    end
   end
 endmodule
 
 module TB_FF_jk();
-  reg j, k, clk;
+  reg j, k, clk, reset;
   wire q;
 
   FF_jk FF_jk(j, k, clk, q);
 
   initial begin
+    reset = 1'b0; #10;
+
     j = 1'b0; k = 1'b0; clk = 1'b0; #10; // q = 0
     j = 1'b0; k = 1'b0; clk = 1'b1; #10; // q = 0
 
@@ -41,6 +49,12 @@ module TB_FF_jk();
 
     j = 1'b0; k = 1'b0; clk = 1'b0; #10; // q = 1
     j = 1'b0; k = 1'b0; clk = 1'b1; #10; // q = 1
+
+    reset = 1'b1; #10;
+    reset = 1'b0; #10;
+
+    j = 1'b0; k = 1'b0; clk = 1'b0; #10; // q = 0
+    j = 1'b0; k = 1'b0; clk = 1'b1; #10; // q = 0
   end
 
 endmodule
