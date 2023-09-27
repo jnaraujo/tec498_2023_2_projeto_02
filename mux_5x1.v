@@ -4,12 +4,12 @@ module mux_5x1(a, b, c, d, e, sel, out);
 
   output out;
 
-  wire w0, w1, w2, w3, w4, w5, w6, w7, w8, w9;
+  wire w0, w1;
 
-  mux_4x1 mux_4x1_0(a, b, c, d, sel[1:0], w0);
-  mux_4x1 mux_4x1_1(e, 0, 0, 0, sel[1:0], w1);
+  mux_4x1 m0(a, b, c, d, sel[1:0], w0);
+  mux_2x1 m1(e, 0, sel[2], w1);
 
-  mux_2x1 mux_2x1_0(w0, w1, sel[2], out);
+  mux_2x1 m2(w0, w1, sel[2], out);
 endmodule
 
 module TB_mux_5x1();
