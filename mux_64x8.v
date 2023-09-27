@@ -7,8 +7,6 @@ module mux_64x8(
   input [2:0] sel;
   output [6:0] out;
 
-  wire w0, w1, w2, w3, w4, w5, w6, w7;
-
   mux_8x1 m0(mapa0[6], mapa1[6], mapa2[6], mapa3[6], mapa4[6], mapa5[6], mapa6[6], mapa7[6], sel, out[6]);
   mux_8x1 m1(mapa0[5], mapa1[5], mapa2[5], mapa3[5], mapa4[5], mapa5[5], mapa6[5], mapa7[5], sel, out[5]);
   mux_8x1 m2(mapa0[4], mapa1[4], mapa2[4], mapa3[4], mapa4[4], mapa5[4], mapa6[4], mapa7[4], sel, out[4]);
