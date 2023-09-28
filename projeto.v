@@ -72,4 +72,12 @@ module projeto(
     .mapa0(matriz0), .mapa1(matriz1), .mapa2(matriz2), .mapa3(matriz3), .mapa4(matriz4)
   );
 
+  display display(
+    clock_out[16],
+    ATAQUE, PREPARACAO, DESLIGADO,
+    {ch5, ch4, ch3}, mapa,
+    a, b, c, d, e, f, g, dp,
+    d0, d1, d2, d3,
+  );
+
 endmodule
