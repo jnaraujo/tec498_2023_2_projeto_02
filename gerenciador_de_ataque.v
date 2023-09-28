@@ -12,34 +12,83 @@ module gerenciador_de_ataque(
 
   // inicializa a matriz de leds
   initial begin
-    matriz0 <= 7'b0000000;
-    matriz1 <= 7'b0000000;
-    matriz2 <= 7'b0000000;
-    matriz3 <= 7'b0000000;
-    matriz4 <= 7'b0000000;
+    matriz0 = 7'b0000000;
+    matriz1 = 7'b0000000;
+    matriz2 = 7'b0000000;
+    matriz3 = 7'b0000000;
+    matriz4 = 7'b0000000;
   end
 
-  // atualiza a matriz de leds
+  wire l0, l1, l2, l3, l4, l5, l6; // linhas da matriz de leds
+  wire c0, c1, c2, c3, c4; // colunas da matriz de leds
+  wire [6:0] tempCol0, tempCol1, tempCol2, tempCol3, tempCol4; // saidas dos multiplexadores
+  wire [6:0] outMapa0, outMapa1, outMapa2, outMapa3, outMapa4; // saidas dos multiplexadores
+
+  decodificador_3bits d0(.sel(coordLinha), .s0(l0), .s1(l1), .s2(l2), .s3(l3), .s4(l4), .s5(l5), .s6(l6), .s7());
+  decodificador_3bits d1(.sel(coordColuna), .s0(c0), .s1(c1), .s2(c2), .s3(c3), .s4(c4), .s5(), .s6(), .s7());
+
+  mux_16x8 mux0(matriz0, mapa0, c0, tempCol0);
+  mux_16x8 mux1(matriz1, mapa1, c1, tempCol1);
+  mux_16x8 mux2(matriz2, mapa2, c2, tempCol2);
+  mux_16x8 mux3(matriz3, mapa3, c3, tempCol3);
+  mux_16x8 mux4(matriz4, mapa4, c4, tempCol4);
+
+  // seleciona qual linha da matriz de leds sera atualizada
+  mux_2x1 mux5(matriz0[0], tempCol0[0], l0, outMapa0[0]);
+  mux_2x1 mux6(matriz0[1], tempCol0[1], l1, outMapa0[1]);
+  mux_2x1 mux7(matriz0[2], tempCol0[2], l2, outMapa0[2]);
+  mux_2x1 mux8(matriz0[3], tempCol0[3], l3, outMapa0[3]);
+  mux_2x1 mux9(matriz0[4], tempCol0[4], l4, outMapa0[4]);
+  mux_2x1 mux10(matriz0[5], tempCol0[5], l5, outMapa0[5]);
+  mux_2x1 mux11(matriz0[6], tempCol0[6], l6, outMapa0[6]);
+
+  mux_2x1 mux12(matriz1[0], tempCol1[0], l0, outMapa1[0]);
+  mux_2x1 mux13(matriz1[1], tempCol1[1], l1, outMapa1[1]);
+  mux_2x1 mux14(matriz1[2], tempCol1[2], l2, outMapa1[2]);
+  mux_2x1 mux15(matriz1[3], tempCol1[3], l3, outMapa1[3]);
+  mux_2x1 mux16(matriz1[4], tempCol1[4], l4, outMapa1[4]);
+  mux_2x1 mux17(matriz1[5], tempCol1[5], l5, outMapa1[5]);
+  mux_2x1 mux18(matriz1[6], tempCol1[6], l6, outMapa1[6]);
+
+  mux_2x1 mux19(matriz2[0], tempCol2[0], l0, outMapa2[0]);
+  mux_2x1 mux20(matriz2[1], tempCol2[1], l1, outMapa2[1]);
+  mux_2x1 mux21(matriz2[2], tempCol2[2], l2, outMapa2[2]);
+  mux_2x1 mux22(matriz2[3], tempCol2[3], l3, outMapa2[3]);
+  mux_2x1 mux23(matriz2[4], tempCol2[4], l4, outMapa2[4]);
+  mux_2x1 mux24(matriz2[5], tempCol2[5], l5, outMapa2[5]);
+  mux_2x1 mux25(matriz2[6], tempCol2[6], l6, outMapa2[6]);
+
+  mux_2x1 mux26(matriz3[0], tempCol3[0], l0, outMapa3[0]);
+  mux_2x1 mux27(matriz3[1], tempCol3[1], l1, outMapa3[1]);
+  mux_2x1 mux28(matriz3[2], tempCol3[2], l2, outMapa3[2]);
+  mux_2x1 mux29(matriz3[3], tempCol3[3], l3, outMapa3[3]);
+  mux_2x1 mux30(matriz3[4], tempCol3[4], l4, outMapa3[4]);
+  mux_2x1 mux31(matriz3[5], tempCol3[5], l5, outMapa3[5]);
+  mux_2x1 mux32(matriz3[6], tempCol3[6], l6, outMapa3[6]);
+
+  mux_2x1 mux33(matriz4[0], tempCol4[0], l0, outMapa4[0]);
+  mux_2x1 mux34(matriz4[1], tempCol4[1], l1, outMapa4[1]);
+  mux_2x1 mux35(matriz4[2], tempCol4[2], l2, outMapa4[2]);
+  mux_2x1 mux36(matriz4[3], tempCol4[3], l3, outMapa4[3]);
+  mux_2x1 mux37(matriz4[4], tempCol4[4], l4, outMapa4[4]);
+  mux_2x1 mux38(matriz4[5], tempCol4[5], l5, outMapa4[5]);
+  mux_2x1 mux39(matriz4[6], tempCol4[6], l6, outMapa4[6]);
+
   always @(posedge confirmar or negedge enable) begin
     if (~enable) begin
-      matriz0 <= 7'b0000000;
-      matriz1 <= 7'b0000000;
-      matriz2 <= 7'b0000000;
-      matriz3 <= 7'b0000000;
-      matriz4 <= 7'b0000000;
-    end else begin
-      if(coordLinha != 3'b111) begin
-        if(coordColuna == 3'b000) begin
-          matriz0[coordLinha] <= mapa0[coordLinha];
-        end else if(coordColuna == 3'b001) begin
-          matriz1[coordLinha] <= mapa1[coordLinha];
-        end else if(coordColuna == 3'b010) begin
-          matriz2[coordLinha] <= mapa2[coordLinha];
-        end else if(coordColuna == 3'b011) begin
-          matriz3[coordLinha] <= mapa3[coordLinha];
-        end else if(coordColuna == 3'b100) begin
-          matriz4[coordLinha] <= mapa4[coordLinha];
-        end
+      matriz0 = 7'b0000000;
+      matriz1 = 7'b0000000;
+      matriz2 = 7'b0000000;
+      matriz3 = 7'b0000000;
+      matriz4 = 7'b0000000;
+    end
+    else begin
+      if (confirmar) begin
+        matriz0 = outMapa0;
+        matriz1 = outMapa1;
+        matriz2 = outMapa2;
+        matriz3 = outMapa3;
+        matriz4 = outMapa4;
       end
     end
   end

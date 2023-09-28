@@ -38,7 +38,7 @@
 
 set_global_assignment -name FAMILY "MAX II"
 set_global_assignment -name DEVICE EPM240T100C5
-set_global_assignment -name TOP_LEVEL_ENTITY contador_2bits
+set_global_assignment -name TOP_LEVEL_ENTITY projeto
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.0.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "12:13:10  SEPTEMBER 23, 2023"
 set_global_assignment -name LAST_QUARTUS_VERSION "18.0.0 Lite Edition"
@@ -72,8 +72,6 @@ set_location_assignment PIN_100 -to e
 set_location_assignment PIN_96 -to dp
 set_location_assignment PIN_37 -to d3
 set_location_assignment PIN_68 -to d2
-set_location_assignment PIN_66 -to d1
-set_location_assignment PIN_88 -to d0
 set_location_assignment PIN_98 -to d
 set_location_assignment PIN_12 -to clock_in
 set_location_assignment PIN_35 -to ch7
