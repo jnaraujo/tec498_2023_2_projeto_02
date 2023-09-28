@@ -1,4 +1,4 @@
-module mux_64x8(
+module mux_mapa(
   mapa0, mapa1, mapa2, mapa3, mapa4, mapa5, mapa6, mapa7,
   sel,
   out
@@ -16,12 +16,12 @@ module mux_64x8(
   mux_8x1 m6(mapa0[0], mapa1[0], mapa2[0], mapa3[0], mapa4[0], mapa5[0], mapa6[0], mapa7[0], sel, out[0]);
 endmodule
 
-module TB_64x8();
+module TB_mux_mapa();
   reg [2:0] sel;
   reg [6:0] mapa0, mapa1, mapa2, mapa3, mapa4, mapa5, mapa6, mapa7;
   wire [6:0] out;
 
-  mux_64x8 mux_64x8(mapa0, mapa1, mapa2, mapa3, mapa4, mapa5, mapa6, mapa7, sel, out);
+  mux_mapa mux_mapa(mapa0, mapa1, mapa2, mapa3, mapa4, mapa5, mapa6, mapa7, sel, out);
 
   initial begin
     mapa0 = 7'b1000001;
