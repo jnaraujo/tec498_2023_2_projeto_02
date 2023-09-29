@@ -30,6 +30,10 @@ module projeto(
 
   wire ligarMatriz; // habilita/desabilita matriz de leds
   wire DESLIGADO, PREPARACAO, ATAQUE; // estados do jogo
+  
+  wire btn_l;
+  
+  level_to_pulse(btn0, clock_out[17], btn_l);
 
   divisor_freq divisor_freq(clock_in, clock_out);
 
@@ -51,7 +55,7 @@ module projeto(
   gerenciador_de_ataque gerenciador_de_ataque(
     .coordColuna({ch5, ch4, ch3}),
     .coordLinha({ch2, ch1, ch0}), .enable(ATAQUE),
-    .confirmar(~btn0),
+    .confirmar(~btn_l),
     .mapa0(mapa0), .mapa1(mapa1), .mapa2(mapa2), .mapa3(mapa3), .mapa4(mapa4),
     .matriz0(matrizAtaque0), .matriz1(matrizAtaque1), .matriz2(matrizAtaque2), .matriz3(matrizAtaque3), .matriz4(matrizAtaque4),
     .LED_R(LED_R), .LED_G(LED_G), .LED_B(LED_B)
@@ -77,7 +81,7 @@ module projeto(
   );
 
   display display(
-    clock_out[16],
+    clock_out[15],
     ATAQUE, PREPARACAO, DESLIGADO, // estados do jogo
     {ch5, ch4, ch3}, {ch2, ch1, ch0}, // coordenadas
     {ch2, ch1, ch0}, // mapa
