@@ -6,7 +6,7 @@ module display(
   mapa,
 
   a, b, c, d, e, f, g, dp,
-  d0, d1, d2, d3,
+  d0, d1, d2, d3
 );
   input clock;
   input ATAQUE, PREPARACAO, DESLIGADO;
@@ -19,6 +19,8 @@ module display(
   wire [1:0] contador;
   wire [7:0] dp_mapa, dp_col, dp_linha;
   wire [7:0] s_d0, s_d1, s_d2, s_d3;
+
+  wire [1:0] modo;
 
   wire [3:0] coordColuna4bits, coordLinha4bits, mapa4bits;
 
@@ -41,6 +43,12 @@ module display(
   // d3 = coordenada de linha
 
   assign s_d1 = 8'b11111111; // desligado
+
+  // ataque = 11
+  // preparacao = 10
+  // desligado = 00
+  or or0(modo[1], ATAQUE, PREPARACAO);
+  and and0(modo[0], ATAQUE);
 
   // contador de 0 a 3
   contador contador_2bits(clock, contador);
@@ -90,8 +98,6 @@ module display(
   mux_32x8 m2(
     s_d0, s_d1, s_d2, s_d3,
     contador,
-    {g, f, e, d, c, b, a}
+    {a, b, c, d, e, f, g, dp}
   );
-
-  assign dp = 1;
 endmodule
