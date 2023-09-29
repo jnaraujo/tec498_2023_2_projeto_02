@@ -23,6 +23,9 @@ module display(
   wire [1:0] modo;
 
   wire [3:0] coordColuna4bits, coordLinha4bits, mapa4bits;
+  
+  wire d0_t, d1_t, d2_t, d3_t;
+  wire ENABLE_D;
 
   assign coordColuna4bits[3] = 1'b0;
   assign coordColuna4bits[2:0] = coordColuna;
@@ -52,9 +55,16 @@ module display(
 
   // contador de 0 a 3
   contador contador_2bits(clock, contador);
+  
+  assign ENABLE_D = ATAQUE | PREPARACAO;
 
   // demux para ativar uma coluna por vez
-  demux_1x4 demux0(.Sel(contador), .E(~DESLIGADO), .Out4(d0), .Out3(d1), .Out2(d2), .Out1(d3));
+  demux_1x4 demux0(.Sel(contador), .E(ENABLE_D), .Out4(d0_t), .Out3(d1_t), .Out2(d2_t), .Out1(d3_t));
+  
+  assign d0 = ~d0_t;
+  assign d1 = ~d1_t;
+  assign d2 = ~d2_t;
+  assign d3 = ~d3_t;
 
   // decodificador de modo
   decodificador_modo dm(
@@ -96,7 +106,7 @@ module display(
   
   // mux da saida dos segmentos
   mux_32x8 m2(
-    s_d0, s_d1, s_d2, s_d3,
+    s_d3, s_d2, s_d1, s_d0,
     contador,
     {a, b, c, d, e, f, g, dp}
   );
