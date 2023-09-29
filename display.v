@@ -74,21 +74,21 @@ module display(
   );
 
   // decodificador de coordenada de coluna
-  decodificador_num dn(
+  decod_col dc(
     1'b1,
     coordColuna4bits,
     dp_col[7], dp_col[6], dp_col[5], dp_col[4], dp_col[3], dp_col[2], dp_col[1], dp_col[0]
   );
 
   // decodificador de coordenada de linha
-  decodificador_num dn2(
+  decodificador_num dn1(
     1'b1,
     coordLinha4bits,
     dp_linha[7], dp_linha[6], dp_linha[5], dp_linha[4], dp_linha[3], dp_linha[2], dp_linha[1], dp_linha[0]
   );
 
   // decodificador de mapa
-  decodificador_num dn3(
+  decodificador_num dn2(
     1'b1,
     mapa4bits,
     dp_mapa[7], dp_mapa[6], dp_mapa[5], dp_mapa[4], dp_mapa[3], dp_mapa[2], dp_mapa[1], dp_mapa[0]

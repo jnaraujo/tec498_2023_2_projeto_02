@@ -113,3 +113,4 @@ set_location_assignment PIN_72 -to LED_G
 set_location_assignment PIN_86 -to LED_R
 set_global_assignment -name VERILOG_FILE mux_4mapas_x1.v
 set_global_assignment -name VERILOG_FILE level_to_pulse.v
+set_global_assignment -name VERILOG_FILE decod_col.v
