@@ -91,6 +91,10 @@ module gerenciador_de_ataque(
       matriz2 = 7'b0000000;
       matriz3 = 7'b0000000;
       matriz4 = 7'b0000000;
+		
+      LED_R = 1'b0;
+      LED_G = 1'b0;
+      LED_B = 1'b0;
     end
     else begin
       if (confirmar) begin
@@ -124,7 +128,7 @@ module gerenciador_de_ataque(
   comparador_de_igualdade cd3(matriz3, outMapa3, igual3);
   comparador_de_igualdade cd4(matriz4, outMapa4, igual4);
 
-  and and0(igual, igual1, igual2, igual3, igual4);
+  and and0(igual, igual0, igual1, igual2, igual3, igual4);
 endmodule
 
 
