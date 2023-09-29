@@ -2,21 +2,31 @@ module gerenciador_de_ataque(
   coordColuna, coordLinha, enable,
   confirmar,
   mapa0, mapa1, mapa2, mapa3, mapa4,
-  matriz0, matriz1, matriz2, matriz3, matriz4
+  matriz0, matriz1, matriz2, matriz3, matriz4,
+  LED_R, LED_G, LED_B
 );
   input [2:0] coordColuna, coordLinha; // coluna e linha da matriz de leds
   input enable, confirmar; // habilita a matriz de leds e confirma a selecao
   input [6:0] mapa0, mapa1, mapa2, mapa3, mapa4; // mapa final do jogo
 
   output reg [6:0] matriz0, matriz1, matriz2, matriz3, matriz4; // mapa atual de bits da matriz de leds
+  output reg LED_R, LED_G, LED_B; // leds de status
+  
+  wire igual0, igual1, igual2, igual3, igual4; // verifica se o jogador acertou o alvo
+  wire igual; // verifica se o jogador acertou o alvo
 
-  // inicializa a matriz de leds
   initial begin
+    // inicializa a matriz de leds
     matriz0 = 7'b0000000;
     matriz1 = 7'b0000000;
     matriz2 = 7'b0000000;
     matriz3 = 7'b0000000;
     matriz4 = 7'b0000000;
+
+    // desliga os leds de status
+    LED_R = 1'b0;
+    LED_G = 1'b0;
+    LED_B = 1'b0;
   end
 
   wire l0, l1, l2, l3, l4, l5, l6; // linhas da matriz de leds
@@ -84,6 +94,20 @@ module gerenciador_de_ataque(
     end
     else begin
       if (confirmar) begin
+        // verifica se o jogador acertou o alvo
+        if(igual) begin
+          // nao acertou o alvo OU acertou um alvo que ja tinha sido acertado
+          LED_R = 1'b1;
+          LED_G = 1'b0;
+          LED_B = 1'b0;
+        end
+        else begin
+          // acertou o alvo
+          LED_R = 1'b0;
+          LED_G = 1'b1;
+          LED_B = 1'b0;
+        end
+
         matriz0 = outMapa0;
         matriz1 = outMapa1;
         matriz2 = outMapa2;
@@ -92,6 +116,15 @@ module gerenciador_de_ataque(
       end
     end
   end
+
+  // verifica se o jogador acertou o alvo
+  comparador_de_igualdade cdi(matriz0, outMapa0, igual0);
+  comparador_de_igualdade cd1(matriz1, outMapa1, igual1);
+  comparador_de_igualdade cd2(matriz2, outMapa2, igual2);
+  comparador_de_igualdade cd3(matriz3, outMapa3, igual3);
+  comparador_de_igualdade cd4(matriz4, outMapa4, igual4);
+
+  and and0(igual, igual1, igual2, igual3, igual4);
 endmodule
 
 
