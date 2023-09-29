@@ -37,11 +37,11 @@ module gerenciador_de_ataque(
   decodificador_3bits d0(.sel(coordLinha), .s0(l0), .s1(l1), .s2(l2), .s3(l3), .s4(l4), .s5(l5), .s6(l6), .s7());
   decodificador_3bits d1(.sel(coordColuna), .s0(c0), .s1(c1), .s2(c2), .s3(c3), .s4(c4), .s5(), .s6(), .s7());
 
-  mux_16x8 mux0(matriz0, mapa0, c0, tempCol0);
-  mux_16x8 mux1(matriz1, mapa1, c1, tempCol1);
-  mux_16x8 mux2(matriz2, mapa2, c2, tempCol2);
-  mux_16x8 mux3(matriz3, mapa3, c3, tempCol3);
-  mux_16x8 mux4(matriz4, mapa4, c4, tempCol4);
+  mux_4mapas_x1 mux0(matriz0, mapa0, c0, tempCol0);
+  mux_4mapas_x1 mux1(matriz1, mapa1, c1, tempCol1);
+  mux_4mapas_x1 mux2(matriz2, mapa2, c2, tempCol2);
+  mux_4mapas_x1 mux3(matriz3, mapa3, c3, tempCol3);
+  mux_4mapas_x1 mux4(matriz4, mapa4, c4, tempCol4);
 
   // seleciona qual linha da matriz de leds sera atualizada
   mux_2x1 mux5(matriz0[0], tempCol0[0], l0, outMapa0[0]);

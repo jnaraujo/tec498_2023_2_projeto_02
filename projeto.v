@@ -57,11 +57,11 @@ module projeto(
   // dependendo do estado do jogo
   // se o jogo estiver desligado, tanto faz o mapa
   // ja que a matriz de leds estara desligada
-  mux_16x8 mux0(matrizSelTemp0, matrizAtaque0, ATAQUE, matriz0);
-  mux_16x8 mux1(matrizSelTemp1, matrizAtaque1, ATAQUE, matriz1);
-  mux_16x8 mux2(matrizSelTemp2, matrizAtaque2, ATAQUE, matriz2);
-  mux_16x8 mux3(matrizSelTemp3, matrizAtaque3, ATAQUE, matriz3);
-  mux_16x8 mux4(matrizSelTemp4, matrizAtaque4, ATAQUE, matriz4);
+  mux_4mapas_x1 mux0(matrizSelTemp0, matrizAtaque0, ATAQUE, matriz0);
+  mux_4mapas_x1 mux1(matrizSelTemp1, matrizAtaque1, ATAQUE, matriz1);
+  mux_4mapas_x1 mux2(matrizSelTemp2, matrizAtaque2, ATAQUE, matriz2);
+  mux_4mapas_x1 mux3(matrizSelTemp3, matrizAtaque3, ATAQUE, matriz3);
+  mux_4mapas_x1 mux4(matrizSelTemp4, matrizAtaque4, ATAQUE, matriz4);
 
   matriz_leds matriz_leds(
     .l0(l0), .l1(l1), .l2(l2), .l3(l3), .l4(l4), .l5(l5), .l6(l6),
