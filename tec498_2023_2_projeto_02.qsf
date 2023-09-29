@@ -107,3 +107,4 @@ set_global_assignment -name VERILOG_FILE decodificador_3bits.v
 set_global_assignment -name VERILOG_FILE decodificador_num.v
 set_global_assignment -name VERILOG_FILE decodificador_modo.v
 set_global_assignment -name VERILOG_FILE display.v
+set_global_assignment -name VERILOG_FILE mux_32x8.v

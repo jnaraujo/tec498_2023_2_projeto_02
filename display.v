@@ -92,4 +92,6 @@ module display(
     contador,
     {g, f, e, d, c, b, a}
   );
+
+  assign dp = 1;
 endmodule
