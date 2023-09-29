@@ -10,8 +10,8 @@ module gerenciador_de_ataque(
   input [6:0] mapa0, mapa1, mapa2, mapa3, mapa4; // mapa final do jogo
 
   output reg [6:0] matriz0, matriz1, matriz2, matriz3, matriz4; // mapa atual de bits da matriz de leds
-  output reg LED_R, LED_G, LED_B; // leds de status
-  
+  output LED_R, LED_G, LED_B; // leds de status
+
   wire igual0, igual1, igual2, igual3, igual4; // verifica se o jogador acertou o alvo
   wire igual; // verifica se o jogador acertou o alvo
 
@@ -22,15 +22,11 @@ module gerenciador_de_ataque(
     matriz2 = 7'b0000000;
     matriz3 = 7'b0000000;
     matriz4 = 7'b0000000;
-
-    // desliga os leds de status
-    LED_R = 1'b0;
-    LED_G = 1'b0;
-    LED_B = 1'b0;
   end
 
   wire l0, l1, l2, l3, l4, l5, l6; // linhas da matriz de leds
   wire c0, c1, c2, c3, c4; // colunas da matriz de leds
+  wire w0, w1, w2; // fios para ligar os leds de status
   wire [6:0] tempCol0, tempCol1, tempCol2, tempCol3, tempCol4; // saidas dos multiplexadores
   wire [6:0] outMapa0, outMapa1, outMapa2, outMapa3, outMapa4; // saidas dos multiplexadores
 
@@ -91,27 +87,9 @@ module gerenciador_de_ataque(
       matriz2 = 7'b0000000;
       matriz3 = 7'b0000000;
       matriz4 = 7'b0000000;
-		
-      LED_R = 1'b0;
-      LED_G = 1'b0;
-      LED_B = 1'b0;
     end
     else begin
       if (confirmar) begin
-        // verifica se o jogador acertou o alvo
-        if(igual) begin
-          // nao acertou o alvo OU acertou um alvo que ja tinha sido acertado
-          LED_R = 1'b1;
-          LED_G = 1'b0;
-          LED_B = 1'b0;
-        end
-        else begin
-          // acertou o alvo
-          LED_R = 1'b0;
-          LED_G = 1'b1;
-          LED_B = 1'b0;
-        end
-
         matriz0 = outMapa0;
         matriz1 = outMapa1;
         matriz2 = outMapa2;
@@ -129,6 +107,16 @@ module gerenciador_de_ataque(
   comparador_de_igualdade cd4(matriz4, outMapa4, igual4);
 
   and and0(igual, igual0, igual1, igual2, igual3, igual4);
+
+  and and1(w0,igual, enable);
+  and and2(w1, ~igual, enable);
+  or or0(w2, confirmar, ~enable);
+
+  // ff dos leds de status
+  FF_d ff0(w0, w2, LED_R);
+  FF_d ff1(w1, w2, LED_G);
+
+  assign LED_B = 1'b0;
 endmodule
 
 
@@ -138,6 +126,7 @@ module TB_gerenciador_de_ataque();
 
   wire [6:0] mapa0, mapa1, mapa2, mapa3, mapa4;
   wire [6:0] matriz0, matriz1, matriz2, matriz3, matriz4;
+  wire LED_R, LED_G, LED_B;
 
   assign mapa0 = 7'b1110001;
   assign mapa1 = 7'b0100000;
@@ -146,7 +135,7 @@ module TB_gerenciador_de_ataque();
   assign mapa4 = 7'b1110000;
 
   gerenciador_de_ataque gerenciador_de_ataque(.coordColuna(coordColuna), .coordLinha(coordLinha), .enable(enable), 
-  .confirmar(confirmar), .mapa0(mapa0), .mapa1(mapa1), .mapa2(mapa2), .mapa3(mapa3), .mapa4(mapa4), .matriz0(matriz0), .matriz1(matriz1), .matriz2(matriz2), .matriz3(matriz3), .matriz4(matriz4));
+  .confirmar(confirmar), .mapa0(mapa0), .mapa1(mapa1), .mapa2(mapa2), .mapa3(mapa3), .mapa4(mapa4), .matriz0(matriz0), .matriz1(matriz1), .matriz2(matriz2), .matriz3(matriz3), .matriz4(matriz4), .LED_R(LED_R), .LED_G(LED_G), .LED_B(LED_B));
 
   initial begin
     enable = 1'b1;
