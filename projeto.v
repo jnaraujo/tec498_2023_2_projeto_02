@@ -1,20 +1,23 @@
 module projeto(
   ch0, ch1, ch2, ch3, ch4, ch5, ch6, ch7,
-  btn0, btn1, btn2, btn3,
+  btn0,
   d0, d1, d2, d3,
   a, b, c, d, e, f, g, dp,
   l0, l1, l2, l3, l4, l5, l6,
   c0, c1, c2, c3, c4,
-  clock_in
+  clock_in,
+  LED_R, LED_G, LED_B
 );
   input ch0, ch1, ch2, ch3, ch4, ch5, ch6, ch7; // chaves
-  input btn0, btn1, btn2, btn3; // botoes
+  input btn0; // botoes
 
   output d0, d1, d2, d3; // digitos do display
   output a, b, c, d, e, f, g, dp; // segmentos do display
 
   output l0, l1, l2, l3, l4, l5, l6; // linhas da matriz de leds
   output c0, c1, c2, c3, c4; // colunas da matriz de leds
+
+  output LED_R, LED_G, LED_B; // leds de status
 
   input clock_in; // clock
   wire [17:0] clock_out; // clock dividido
@@ -50,7 +53,8 @@ module projeto(
     .coordLinha({ch2, ch1, ch0}), .enable(ATAQUE),
     .confirmar(~btn0),
     .mapa0(mapa0), .mapa1(mapa1), .mapa2(mapa2), .mapa3(mapa3), .mapa4(mapa4),
-    .matriz0(matrizAtaque0), .matriz1(matrizAtaque1), .matriz2(matrizAtaque2), .matriz3(matrizAtaque3), .matriz4(matrizAtaque4)
+    .matriz0(matrizAtaque0), .matriz1(matrizAtaque1), .matriz2(matrizAtaque2), .matriz3(matrizAtaque3), .matriz4(matrizAtaque4),
+    .LED_R(LED_R), .LED_G(LED_G), .LED_B(LED_B)
   );
 
   // seleciona qual dos mapas dever ser exibido na matriz de leds
@@ -74,10 +78,11 @@ module projeto(
 
   display display(
     clock_out[16],
-    ATAQUE, PREPARACAO, DESLIGADO,
-    {ch5, ch4, ch3}, mapa,
+    ATAQUE, PREPARACAO, DESLIGADO, // estados do jogo
+    {ch5, ch4, ch3}, {ch2, ch1, ch0}, // coordenadas
+    {ch2, ch1, ch0}, // mapa
     a, b, c, d, e, f, g, dp,
-    d0, d1, d2, d3,
+    d0, d1, d2, d3
   );
 
 endmodule

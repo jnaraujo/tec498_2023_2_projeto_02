@@ -88,9 +88,6 @@ set_location_assignment PIN_95 -to c2
 set_location_assignment PIN_99 -to c1
 set_location_assignment PIN_97 -to c0
 set_location_assignment PIN_41 -to c
-set_location_assignment PIN_44 -to btn3
-set_location_assignment PIN_48 -to btn2
-set_location_assignment PIN_50 -to btn1
 set_location_assignment PIN_52 -to btn0
 set_location_assignment PIN_70 -to b
 set_location_assignment PIN_90 -to a
@@ -107,4 +104,11 @@ set_global_assignment -name VERILOG_FILE decodificador_3bits.v
 set_global_assignment -name VERILOG_FILE decodificador_num.v
 set_global_assignment -name VERILOG_FILE decodificador_modo.v
 set_global_assignment -name VERILOG_FILE display.v
+set_global_assignment -name VERILOG_FILE comparador_de_igualdade.v
 set_global_assignment -name VERILOG_FILE mux_32x8.v
+set_location_assignment PIN_88 -to d0
+set_location_assignment PIN_66 -to d1
+set_location_assignment PIN_74 -to LED_B
+set_location_assignment PIN_72 -to LED_G
+set_location_assignment PIN_86 -to LED_R
+set_global_assignment -name VERILOG_FILE mux_4mapas_x1.v
