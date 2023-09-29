@@ -1,3 +1,6 @@
+/*
+  Módulo para reduzir o ruído de um sinal de entrada.
+*/
 module level_to_pulse(
     input ruido,
     input clk,
@@ -16,5 +19,4 @@ module level_to_pulse(
   wire aneg;
   not ( aneg, FFD2);
   and (sem_ruido, FFD1, aneg);
- 
 endmodule
