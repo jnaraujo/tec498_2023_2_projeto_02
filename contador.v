@@ -8,38 +8,36 @@ module contador(clock, S);
 	input clock;
 	output [2:0] S;
 
-	wire w0, w1, w2;
+	wire [2:0] curr, next;
 
-	wire reset;
-	
-	assign reset = 0;
+	controle controle(next, curr);
 
-	FF_jk FF_jk1(1'b1, 1'b1, reset, clock, w0);
-	FF_jk FF_jk2(1'b1, 1'b1, reset, w0, w1);
-	FF_jk FF_jk3(1'b1, 1'b1, reset, w1, w2);
+	FF_d d0(curr[0], clock, next[0]);
+	FF_d d1(curr[1], clock, next[1]);
+	FF_d d2(curr[2], clock, next[2]);
 
-//	and and0(reset, w2, ~w1, w0);
-
-	assign S = {w2, w1, w0};
+	assign S = next;
 endmodule
 
-// module contador(clock, S);
-// 	input clock;
-// 	output reg [2:0] S;
-//
-// 	initial begin
-// 		S = 3'b000;
-// 	end
-//
-// 	always @(posedge clock)
-// 	begin
-// 		if (S == 3'b100)
-// 			S <= 3'b000;
-// 		else
-// 			S <= S + 1'b1;
-// 	end
-//
-// endmodule
+module controle(E, S);
+	input [2:0] E;
+	output [2:0] S;
+
+	wire w0, w1;
+
+	// NOT a AND b AND c
+	and and0(S[2], ~E[2], E[1], E[0]);
+
+	// ( NOT a AND b AND NOT c) OR ( NOT a AND NOT b AND c)
+	and and1(w0, ~E[2], E[1], ~E[0]);
+	and and2(w1, ~E[2], ~E[1], E[0]);
+
+	or or0(S[1], w0, w1);
+
+	// NOT a AND NOT c
+	and and3(S[0], ~E[2], ~E[0]);
+
+endmodule
 
 module TB_contador;
 	reg clock;

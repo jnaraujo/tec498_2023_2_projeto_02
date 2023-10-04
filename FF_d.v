@@ -3,6 +3,10 @@ module FF_d(D,clk,Q);
   input clk; // clock input 
   output reg Q; // output Q 
 
+  initial begin
+    Q = 1'b0;
+  end
+
   always @(posedge clk) begin
     Q <= D; 
   end 
