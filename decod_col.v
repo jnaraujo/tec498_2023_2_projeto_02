@@ -8,7 +8,7 @@ module decod_col(
 
   output a, b, c, d, e, f, g, dp;
 
-  wire w0, w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, w11;
+  wire w0, w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, w11, w12;
 
   // NOT a OR (b AND c) OR d
   and and0(w0, sel[2], sel[1]);
