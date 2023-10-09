@@ -1,4 +1,4 @@
-module mux_4mapas_x1(
+module mux_2mapas_x1(
   mapa0, mapa1,
   sel,
   out
@@ -16,12 +16,12 @@ module mux_4mapas_x1(
   mux_2x1 mux6(mapa0[6], mapa1[6], sel, out[6]);
 endmodule
 
-module TB_mux_4mapas_x1();
+module TB_mux_2mapas_x1();
   reg sel;
   reg [6:0] mapa0, mapa1;
   wire [6:0] out;
 
-  mux_4mapas_x1 mux_4mapas_x1(mapa0, mapa1, sel, out);
+  mux_2mapas_x1 mux_2mapas_x1(mapa0, mapa1, sel, out);
 
   initial begin
     mapa0 = 7'b1000001;
