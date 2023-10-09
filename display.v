@@ -4,7 +4,7 @@ module display(
   coordColuna,
   coordLinha,
   mapa,
-
+  vida,
   a, b, c, d, e, f, g, dp,
   d0, d1, d2, d3
 );
@@ -12,29 +12,32 @@ module display(
   input ATAQUE, PREPARACAO, DESLIGADO;
   input [2:0] coordColuna, coordLinha;
   input [2:0] mapa;
+  input [2:0] vida;
 
   output a, b, c, d, e, f, g, dp;
   output d0, d1, d2, d3;
 
   wire [1:0] contador;
   wire [7:0] dp_mapa, dp_col, dp_linha;
+  wire [7:0] dp_vida;
   wire [7:0] s_d0, s_d1, s_d2, s_d3;
 
   wire [1:0] modo;
 
-  wire [3:0] coordColuna4bits, coordLinha4bits, mapa4bits;
+  wire [3:0] coordColuna4bits, coordLinha4bits, mapa4bits, vida4bits;
   
   wire d0_t, d1_t, d2_t, d3_t;
   wire ENABLE_D;
 
+  // conversor de 3 bits para 4 bits
   assign coordColuna4bits[3] = 1'b0;
   assign coordColuna4bits[2:0] = coordColuna;
-
   assign coordLinha4bits[3] = 1'b0;
   assign coordLinha4bits[2:0] = coordLinha;
-
   assign mapa4bits[3] = 1'b0;
   assign mapa4bits[2:0] = mapa;
+  assign vida4bits[3] = 1'b0;
+  assign vida4bits[2:0] = vida;
 
   // modo preparacao
   // d0 = modo de jogo
@@ -42,10 +45,9 @@ module display(
 
   // modo ataque
   // d0 = modo de jogo
+  // d1 = vida
   // d2 = coordenada de coluna
   // d3 = coordenada de linha
-
-  assign s_d1 = 8'b11111111; // desligado
 
   // ataque = 11
   // preparacao = 10
@@ -92,6 +94,18 @@ module display(
     1'b1,
     mapa4bits,
     dp_mapa[7], dp_mapa[6], dp_mapa[5], dp_mapa[4], dp_mapa[3], dp_mapa[2], dp_mapa[1], dp_mapa[0]
+  );
+
+  // decodificador de vida
+  decodificador_num dn3(
+    1'b1,
+    vida4bits,
+    dp_vida[7], dp_vida[6], dp_vida[5], dp_vida[4], dp_vida[3], dp_vida[2], dp_vida[1], dp_vida[0]
+  );
+
+  // mux da saida 1
+  mux_16x8 m(
+    8'b11111111, s_d1, ATAQUE, s_d1
   );
 
   // mux da saida 2

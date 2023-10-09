@@ -28,10 +28,12 @@ module projeto(
   wire [6:0] matrizAtaque0, matrizAtaque1, matrizAtaque2, matrizAtaque3, matrizAtaque4; // matriz de ataque do jogador
   wire [6:0] matriz0, matriz1, matriz2, matriz3, matriz4; // bits que serao exibidos na matriz de leds
 
+  wire [2:0] vida; // contador de vida do usuario
+
   wire ligarMatriz; // habilita/desabilita matriz de leds
   wire DESLIGADO, PREPARACAO, ATAQUE; // estados do jogo
   
-  wire btn_l;
+  wire btn_l; // botao de confirmacao do ataque sem ruido
   
   level_to_pulse(btn0, clock_out[17], btn_l);
 
@@ -58,7 +60,8 @@ module projeto(
     .confirmar(~btn_l),
     .mapa0(mapa0), .mapa1(mapa1), .mapa2(mapa2), .mapa3(mapa3), .mapa4(mapa4),
     .matriz0(matrizAtaque0), .matriz1(matrizAtaque1), .matriz2(matrizAtaque2), .matriz3(matrizAtaque3), .matriz4(matrizAtaque4),
-    .LED_R(LED_R), .LED_G(LED_G), .LED_B(LED_B)
+    .LED_R(LED_R), .LED_G(LED_G), .LED_B(LED_B),
+    .vida(vida)
   );
 
   // seleciona qual dos mapas dever ser exibido na matriz de leds
@@ -85,6 +88,7 @@ module projeto(
     ATAQUE, PREPARACAO, DESLIGADO, // estados do jogo
     {ch5, ch4, ch3}, {ch2, ch1, ch0}, // coordenadas
     {ch2, ch1, ch0}, // mapa
+    vida, // vida
     a, b, c, d, e, f, g, dp,
     d0, d1, d2, d3
   );

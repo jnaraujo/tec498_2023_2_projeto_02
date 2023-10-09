@@ -3,7 +3,8 @@ module gerenciador_de_ataque(
   confirmar,
   mapa0, mapa1, mapa2, mapa3, mapa4,
   matriz0, matriz1, matriz2, matriz3, matriz4,
-  LED_R, LED_G, LED_B
+  LED_R, LED_G, LED_B,
+  vida
 );
   input [2:0] coordColuna, coordLinha; // coluna e linha da matriz de leds
   input enable, confirmar; // habilita a matriz de leds e confirma a selecao
@@ -11,9 +12,12 @@ module gerenciador_de_ataque(
 
   output reg [6:0] matriz0, matriz1, matriz2, matriz3, matriz4; // mapa atual de bits da matriz de leds
   output LED_R, LED_G, LED_B; // leds de status
+  output [2:0] vida; // contador de vida do usuario
 
   wire igual0, igual1, igual2, igual3, igual4; // verifica se o jogador acertou o alvo
-  wire igual; // verifica se o jogador acertou o alvo
+  wire errou_ataque; // verifica se o jogador errou o alvo
+  wire diminuir_vida; // diminui a vida do usuario
+  wire vida_esta_zerada; // verifica se a vida do usuario esta zerada
 
   initial begin
     // inicializa a matriz de leds
@@ -30,6 +34,7 @@ module gerenciador_de_ataque(
   wire [6:0] tempCol0, tempCol1, tempCol2, tempCol3, tempCol4; // saidas dos multiplexadores
   wire [6:0] outMapa0, outMapa1, outMapa2, outMapa3, outMapa4; // saidas dos multiplexadores
 
+  // decodifica a coluna e a linha da matriz de leds
   decodificador_3bits d0(.sel(coordLinha), .s0(l0), .s1(l1), .s2(l2), .s3(l3), .s4(l4), .s5(l5), .s6(l6), .s7());
   decodificador_3bits d1(.sel(coordColuna), .s0(c0), .s1(c1), .s2(c2), .s3(c3), .s4(c4), .s5(), .s6(), .s7());
 
@@ -81,8 +86,8 @@ module gerenciador_de_ataque(
   mux_2x1 mux38(matriz4[5], tempCol4[5], l5, outMapa4[5]);
   mux_2x1 mux39(matriz4[6], tempCol4[6], l6, outMapa4[6]);
 
-  always @(posedge confirmar or negedge enable) begin
-    if (~enable) begin
+  always @(posedge confirmar or negedge enable or posedge vida_esta_zerada) begin
+    if (~enable | vida_esta_zerada) begin
       matriz0 = 7'b0000000;
       matriz1 = 7'b0000000;
       matriz2 = 7'b0000000;
@@ -107,10 +112,13 @@ module gerenciador_de_ataque(
   comparador_de_igualdade cd3(matriz3, outMapa3, igual3);
   comparador_de_igualdade cd4(matriz4, outMapa4, igual4);
 
-  and and0(igual, igual0, igual1, igual2, igual3, igual4);
+  // se ele acertou o alvo, errou_ataque vai ser 0
+  // ja que o mapa sera diferente
+  and and0(errou_ataque, igual0, igual1, igual2, igual3, igual4);
 
-  and and1(w0,igual, enable);
-  and and2(w1, ~igual, enable);
+  // se o jogador acertou o alvo, os leds de status
+  and and1(w0, errou_ataque, enable);
+  and and2(w1, ~errou_ataque, enable);
   or or0(w2, confirmar, ~enable);
 
   // ff dos leds de status
@@ -118,6 +126,13 @@ module gerenciador_de_ataque(
   FF_d ff1(w1, w2, LED_G);
 
   assign LED_B = 1'b0;
+
+  and and3(diminuir_vida, errou_ataque, enable, confirmar);
+  // contador de vida do usuario
+  contador_vida contador_vida(.clock(diminuir_vida), .reset(~enable), .S(vida));
+
+  // verifica se a vida do usuario esta zerada
+  comparador_de_igualdade cdi0(vida, 3'b000, vida_esta_zerada);
 endmodule
 
 
