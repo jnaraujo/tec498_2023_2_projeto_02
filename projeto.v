@@ -20,7 +20,7 @@ module projeto(
   output LED_R, LED_G, LED_B; // leds de status
 
   input clock_in; // clock
-  wire [17:0] clock_out; // clock dividido
+  wire [15:0] clock_out; // clock dividido
 
   wire [6:0] mapa0, mapa1, mapa2, mapa3, mapa4; // mapa final do jogo
 
@@ -35,7 +35,7 @@ module projeto(
   
   wire btn_l; // botao de confirmacao do ataque sem ruido
   
-  level_to_pulse(btn0, clock_out[17], btn_l);
+  level_to_pulse(btn0, clock_out[15], btn_l);
 
   divisor_freq divisor_freq(clock_in, clock_out);
 
