@@ -17,7 +17,6 @@ module gerenciador_de_ataque(
   wire igual0, igual1, igual2, igual3, igual4; // verifica se o jogador acertou o alvo
   wire errou_ataque; // verifica se o jogador errou o alvo
   wire diminuir_vida; // diminui a vida do usuario
-  wire vida_esta_zerada; // verifica se a vida do usuario esta zerada
 
   // initial begin
   //   // inicializa a matriz de leds
@@ -175,9 +174,6 @@ module gerenciador_de_ataque(
   and and3(diminuir_vida, errou_ataque, enable, confirmar);
   // contador de vida do usuario
   contador_vida contador_vida(.clock(diminuir_vida), .reset(~enable), .S(vida));
-
-  // verifica se a vida do usuario esta zerada
-  and and4(vida_esta_zerada, ~vida[2], ~vida[1], ~vida[0]);
 endmodule
 
 
