@@ -11,7 +11,7 @@ module gerenciador_de_ataque(
   input [6:0] mapa0, mapa1, mapa2, mapa3, mapa4; // mapa final do jogo
 
   output reg [6:0] matriz0, matriz1, matriz2, matriz3, matriz4; // mapa atual de bits da matriz de leds
-  output reg LED_R, LED_G, LED_B; // leds de status
+  output LED_R, LED_G, LED_B; // leds de status
   output [1:0] vida; // contador de vida do usuario
 
   wire igual0, igual1, igual2, igual3, igual4; // verifica se o jogador acertou o alvo
@@ -25,11 +25,6 @@ module gerenciador_de_ataque(
     matriz2 = 7'b0000000;
     matriz3 = 7'b0000000;
     matriz4 = 7'b0000000;
-	 
-	 // desliga os leds de status
-    LED_R = 1'b0;
-    LED_G = 1'b0;
-    LED_B = 1'b0;
   end
 
   wire l0, l1, l2, l3, l4, l5, l6; // linhas da matriz de leds
@@ -97,10 +92,6 @@ module gerenciador_de_ataque(
       matriz2 = 7'b0000000;
       matriz3 = 7'b0000000;
       matriz4 = 7'b0000000;
-		
-		LED_R = 1'b0;
-      LED_G = 1'b0;
-      LED_B = 1'b0;	
     end
     else begin
       if (confirmar) begin
@@ -109,18 +100,6 @@ module gerenciador_de_ataque(
         matriz2 = outMapa2;
         matriz3 = outMapa3;
         matriz4 = outMapa4;
-		  
-		  // verifica se o jogador errou o ataque
-        if(errou_ataque) begin
-          // nao acertou o alvo OU acertou um alvo que ja tinha sido acertado
-          LED_R = 1'b1;
-          LED_G = 1'b0;
-        end
-        else begin
-          // acertou o alvo
-          LED_R = 1'b0;
-          LED_G = 1'b1;
-        end
       end
     end
   end
@@ -139,6 +118,23 @@ module gerenciador_de_ataque(
   and and3(diminuir_vida, errou_ataque, confirmar, enable);
   // contador de vida do usuario
   contador_vida contador_vida(.clock(diminuir_vida), .reset(~enable), .S(vida));
+
+
+  // controla os leds de status
+  and and1(w0, errou_ataque, enable);
+  and and2(w1, ~errou_ataque, enable);
+
+  // se o jogador errou o ataque, o led vermelho acende
+  FF_jk(
+  	w0, ~w0, ~enable, confirmar, LED_R
+  );
+
+  // se o jogador acertou o ataque, o led verde acende
+  FF_jk(
+  	w1, ~w1, ~enable, confirmar, LED_G
+  );
+
+  assign LED_B = 1'b0; // led azul sempre desligado
 endmodule
 
 
