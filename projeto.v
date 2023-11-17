@@ -51,7 +51,7 @@ module projeto(
   and and_lm0(ligarMatriz, lm_w0, ~tem_vida); // habilita a matriz de leds se o jogador ainda tem vida e esta em um dos modos de jogo
 
   seletor_mapa seletor_mapa(
-    .sel({ch2, ch1, ch0}),
+    .sel({ch1, ch0}),
     .confirmar(~btn0), .enable(PREPARACAO),
     .mapaTemp0(matrizSelTemp0), .mapaTemp1(matrizSelTemp1), .mapaTemp2(matrizSelTemp2), .mapaTemp3(matrizSelTemp3), .mapaTemp4(matrizSelTemp4),
     .mapa0(mapa0), .mapa1(mapa1), .mapa2(mapa2), .mapa3(mapa3), .mapa4(mapa4)
@@ -91,7 +91,7 @@ module projeto(
     clock_out[15],
     ATAQUE, PREPARACAO, DESLIGADO, // estados do jogo
     {ch5, ch4, ch3}, {ch2, ch1, ch0}, // coordenadas
-    {ch2, ch1, ch0}, // mapa
+    {ch1, ch0}, // mapa
     vida, // vida
     a, b, c, d, e, f, g, dp,
     d0, d1, d2, d3
