@@ -1,19 +1,19 @@
 module mux_mapa(
-  mapa0, mapa1, mapa2, mapa3, mapa4, mapa5, mapa6, mapa7,
+  mapa0, mapa1, mapa2, mapa3,
   sel,
   out
 );
-  input [6:0] mapa0, mapa1, mapa2, mapa3, mapa4, mapa5, mapa6, mapa7;
-  input [2:0] sel;
+  input [6:0] mapa0, mapa1, mapa2, mapa3;
+  input [1:0] sel;
   output [6:0] out;
 
-  mux_8x1 m0(mapa0[6], mapa1[6], mapa2[6], mapa3[6], mapa4[6], mapa5[6], mapa6[6], mapa7[6], sel, out[6]);
-  mux_8x1 m1(mapa0[5], mapa1[5], mapa2[5], mapa3[5], mapa4[5], mapa5[5], mapa6[5], mapa7[5], sel, out[5]);
-  mux_8x1 m2(mapa0[4], mapa1[4], mapa2[4], mapa3[4], mapa4[4], mapa5[4], mapa6[4], mapa7[4], sel, out[4]);
-  mux_8x1 m3(mapa0[3], mapa1[3], mapa2[3], mapa3[3], mapa4[3], mapa5[3], mapa6[3], mapa7[3], sel, out[3]);
-  mux_8x1 m4(mapa0[2], mapa1[2], mapa2[2], mapa3[2], mapa4[2], mapa5[2], mapa6[2], mapa7[2], sel, out[2]);
-  mux_8x1 m5(mapa0[1], mapa1[1], mapa2[1], mapa3[1], mapa4[1], mapa5[1], mapa6[1], mapa7[1], sel, out[1]);
-  mux_8x1 m6(mapa0[0], mapa1[0], mapa2[0], mapa3[0], mapa4[0], mapa5[0], mapa6[0], mapa7[0], sel, out[0]);
+  mux_4x1 m0(mapa0[6], mapa1[6], mapa2[6], mapa3[6], sel, out[6]);
+  mux_4x1 m1(mapa0[5], mapa1[5], mapa2[5], mapa3[5], sel, out[5]);
+  mux_4x1 m2(mapa0[4], mapa1[4], mapa2[4], mapa3[4], sel, out[4]);
+  mux_4x1 m3(mapa0[3], mapa1[3], mapa2[3], mapa3[3], sel, out[3]);
+  mux_4x1 m4(mapa0[2], mapa1[2], mapa2[2], mapa3[2], sel, out[2]);
+  mux_4x1 m5(mapa0[1], mapa1[1], mapa2[1], mapa3[1], sel, out[1]);
+  mux_4x1 m6(mapa0[0], mapa1[0], mapa2[0], mapa3[0], sel, out[0]);
 endmodule
 
 module TB_mux_mapa();
