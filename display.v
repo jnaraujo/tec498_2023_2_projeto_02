@@ -43,7 +43,7 @@ module display(
   or or0(modo[1], ATAQUE, PREPARACAO);
   and and0(modo[0], ATAQUE);
 
-  assign ENABLE_D = ATAQUE | PREPARACAO;
+  or or1(ENABLE_D, ATAQUE, PREPARACAO);
 
   // demux para ativar uma coluna por vez
   demux_1x4 demux0(.Sel(contador), .E(ENABLE_D), .Out4(d0_t), .Out3(d1_t), .Out2(d2_t), .Out1(d3_t));

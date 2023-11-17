@@ -47,8 +47,7 @@ module decod_col(
   assign dp = 1'b1;
 endmodule
 
-module TB_decod_col();
-reg enable;
+module TB_decod_col();-
   reg [2:0] sel;
 
   wire a, b, c, d, e, f, g, dp;
@@ -56,23 +55,23 @@ reg enable;
   decod_col decod_col(sel, a, b, c, d, e, f, g, dp);
 
   initial begin
-    enable = 1'b1; sel = 3'b000; #10; // 0	0	0	1	0	0	0	1
-    enable = 1'b1; sel = 3'b001; #10; // 1	1	0	0	0	0	0	1
-    enable = 1'b1; sel = 3'b010; #10; // 0	1	1	0	0	0	1	1
-    enable = 1'b1; sel = 3'b011; #10; // 1	0	0	0	0	1	1	1
-    enable = 1'b1; sel = 3'b100; #10; // 0	1	1	0	0	0	0	1
+    sel = 3'b000; #10; // 0	0	0	1	0	0	0	1
+    sel = 3'b001; #10; // 1	1	0	0	0	0	0	1
+    sel = 3'b010; #10; // 0	1	1	0	0	0	1	1
+    sel = 3'b011; #10; // 1	0	0	0	0	1	1	1
+    sel = 3'b100; #10; // 0	1	1	0	0	0	0	1
 
-    enable = 1'b1; sel = 3'b101; #10;
-    enable = 1'b1; sel = 3'b110; #10;
-    enable = 1'b1; sel = 3'b111; #10;
-    enable = 1'b0; sel = 3'b000; #10;
-    enable = 1'b0; sel = 3'b001; #10;
-    enable = 1'b0; sel = 3'b010; #10;
-    enable = 1'b0; sel = 3'b011; #10;
-    enable = 1'b0; sel = 3'b100; #10;
-    enable = 1'b0; sel = 3'b101; #10;
-    enable = 1'b0; sel = 3'b110; #10;
-    enable = 1'b0; sel = 3'b111; #10;
+    sel = 3'b101; #10;
+    sel = 3'b110; #10;
+    sel = 3'b111; #10;
+    sel = 3'b000; #10;
+    sel = 3'b001; #10;
+    sel = 3'b010; #10;
+    sel = 3'b011; #10;
+    sel = 3'b100; #10;
+    sel = 3'b101; #10;
+    sel = 3'b110; #10;
+    sel = 3'b111; #10;
   end
 
 endmodule
