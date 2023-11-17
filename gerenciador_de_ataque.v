@@ -11,7 +11,7 @@ module gerenciador_de_ataque(
   input [6:0] mapa0, mapa1, mapa2, mapa3, mapa4; // mapa final do jogo
 
   output reg [6:0] matriz0, matriz1, matriz2, matriz3, matriz4; // mapa atual de bits da matriz de leds
-  output LED_R, LED_G, LED_B; // leds de status
+  output reg LED_R, LED_G, LED_B; // leds de status
   output [2:0] vida; // contador de vida do usuario
 
   wire igual0, igual1, igual2, igual3, igual4; // verifica se o jogador acertou o alvo
@@ -25,6 +25,11 @@ module gerenciador_de_ataque(
     matriz2 = 7'b0000000;
     matriz3 = 7'b0000000;
     matriz4 = 7'b0000000;
+	 
+	 // desliga os leds de status
+    LED_R = 1'b0;
+    LED_G = 1'b0;
+    LED_B = 1'b0;
   end
 
   wire l0, l1, l2, l3, l4, l5, l6; // linhas da matriz de leds
@@ -85,51 +90,6 @@ module gerenciador_de_ataque(
   mux_2x1 mux38(matriz4[5], tempCol4[5], l5, outMapa4[5]);
   mux_2x1 mux39(matriz4[6], tempCol4[6], l6, outMapa4[6]);
 
-  // wire clock_ff;
-
-  // or or_cff(clock_ff, ~enable, confirmar);
-  
-  // ff da matriz de leds
-  // FF_d ff_d00(outMapa0[0] & enable, clock_ff, matriz0[0]);
-  // FF_d ff_d10(outMapa0[1] & enable, clock_ff, matriz0[1]);
-  // FF_d ff_d20(outMapa0[2] & enable, clock_ff, matriz0[2]);
-  // FF_d ff_d30(outMapa0[3] & enable, clock_ff, matriz0[3]);
-  // FF_d ff_d40(outMapa0[4] & enable, clock_ff, matriz0[4]);
-  // FF_d ff_d50(outMapa0[5] & enable, clock_ff, matriz0[5]);
-  // FF_d ff_d60(outMapa0[6] & enable, clock_ff, matriz0[6]);
-  
-  // FF_d ff_d01(outMapa1[0] & enable, clock_ff, matriz1[0]);
-  // FF_d ff_d11(outMapa1[1] & enable, clock_ff, matriz1[1]);
-  // FF_d ff_d21(outMapa1[2] & enable, clock_ff, matriz1[2]);
-  // FF_d ff_d31(outMapa1[3] & enable, clock_ff, matriz1[3]);
-  // FF_d ff_d41(outMapa1[4] & enable, clock_ff, matriz1[4]);
-  // FF_d ff_d51(outMapa1[5] & enable, clock_ff, matriz1[5]);
-  // FF_d ff_d61(outMapa1[6] & enable, clock_ff, matriz1[6]);
-
-  // FF_d ff_d02(outMapa2[0] & enable, clock_ff, matriz2[0]);
-  // FF_d ff_d12(outMapa2[1] & enable, clock_ff, matriz2[1]);
-  // FF_d ff_d22(outMapa2[2] & enable, clock_ff, matriz2[2]);
-  // FF_d ff_d32(outMapa2[3] & enable, clock_ff, matriz2[3]);
-  // FF_d ff_d42(outMapa2[4] & enable, clock_ff, matriz2[4]);
-  // FF_d ff_d52(outMapa2[5] & enable, clock_ff, matriz2[5]);
-  // FF_d ff_d62(outMapa2[6] & enable, clock_ff, matriz2[6]);
-
-  // FF_d ff_d03(outMapa3[0] & enable, clock_ff, matriz3[0]);
-  // FF_d ff_d13(outMapa3[1] & enable, clock_ff, matriz3[1]);
-  // FF_d ff_d23(outMapa3[2] & enable, clock_ff, matriz3[2]);
-  // FF_d ff_d33(outMapa3[3] & enable, clock_ff, matriz3[3]);
-  // FF_d ff_d43(outMapa3[4] & enable, clock_ff, matriz3[4]);
-  // FF_d ff_d53(outMapa3[5] & enable, clock_ff, matriz3[5]);
-  // FF_d ff_d63(outMapa3[6] & enable, clock_ff, matriz3[6]);
-
-  // FF_d ff_d04(outMapa4[0] & enable, clock_ff, matriz4[0]);
-  // FF_d ff_d14(outMapa4[1] & enable, clock_ff, matriz4[1]);
-  // FF_d ff_d24(outMapa4[2] & enable, clock_ff, matriz4[2]);
-  // FF_d ff_d34(outMapa4[3] & enable, clock_ff, matriz4[3]);
-  // FF_d ff_d44(outMapa4[4] & enable, clock_ff, matriz4[4]);
-  // FF_d ff_d54(outMapa4[5] & enable, clock_ff, matriz4[5]);
-  // FF_d ff_d64(outMapa4[6] & enable, clock_ff, matriz4[6]);
-
   always @(posedge confirmar or negedge enable) begin
     if (~enable) begin
       matriz0 = 7'b0000000;
@@ -137,6 +97,10 @@ module gerenciador_de_ataque(
       matriz2 = 7'b0000000;
       matriz3 = 7'b0000000;
       matriz4 = 7'b0000000;
+		
+		LED_R = 1'b0;
+      LED_G = 1'b0;
+      LED_B = 1'b0;	
     end
     else begin
       if (confirmar) begin
@@ -145,6 +109,18 @@ module gerenciador_de_ataque(
         matriz2 = outMapa2;
         matriz3 = outMapa3;
         matriz4 = outMapa4;
+		  
+		  // verifica se o jogador errou o ataque
+        if(errou_ataque) begin
+          // nao acertou o alvo OU acertou um alvo que ja tinha sido acertado
+          LED_R = 1'b1;
+          LED_G = 1'b0;
+        end
+        else begin
+          // acertou o alvo
+          LED_R = 1'b0;
+          LED_G = 1'b1;
+        end
       end
     end
   end
@@ -160,18 +136,7 @@ module gerenciador_de_ataque(
   // ja que o mapa sera diferente
   and and0(errou_ataque, igual0, igual1, igual2, igual3, igual4);
 
-  // se o jogador acertou o alvo, os leds de status
-  and and1(w0, errou_ataque, enable);
-  and and2(w1, ~errou_ataque, enable);
-  or or0(w2, confirmar, ~enable);
-
-  // ff dos leds de status
-  FF_d ff0(w0, w2, LED_R);
-  FF_d ff1(w1, w2, LED_G);
-
-  assign LED_B = 1'b0;
-
-  and and3(diminuir_vida, errou_ataque, enable, confirmar);
+  and and3(diminuir_vida, errou_ataque, confirmar, enable);
   // contador de vida do usuario
   contador_vida contador_vida(.clock(diminuir_vida), .reset(~enable), .S(vida));
 endmodule

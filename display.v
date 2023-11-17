@@ -1,5 +1,5 @@
 module display(
-  clock,
+  contador,
   ATAQUE, PREPARACAO, DESLIGADO,
   coordColuna,
   coordLinha,
@@ -8,10 +8,10 @@ module display(
   a, b, c, d, e, f, g, dp,
   d0, d1, d2, d3
 );
-  input clock;
+  input [1:0] contador;
   input ATAQUE, PREPARACAO, DESLIGADO;
   input [2:0] coordColuna, coordLinha;
-  input [2:0] mapa;
+  input [1:0] mapa;
   input [2:0] vida;
 
   output a, b, c, d, e, f, g, dp;
@@ -43,9 +43,6 @@ module display(
   or or0(modo[1], ATAQUE, PREPARACAO);
   and and0(modo[0], ATAQUE);
 
-  // contador de 0 a 3
-  contador contador_2bits(clock, contador);
-  
   assign ENABLE_D = ATAQUE | PREPARACAO;
 
   // demux para ativar uma coluna por vez
@@ -65,7 +62,6 @@ module display(
 
   // decodificador de coordenada de coluna
   decod_col dc(
-    1'b1,
     coordColuna,
     dp_col[7], dp_col[6], dp_col[5], dp_col[4], dp_col[3], dp_col[2], dp_col[1], dp_col[0]
   );
@@ -90,7 +86,7 @@ module display(
 
   // mux da saida 1
   mux_16x8 m(
-    8'b11111111, s_d1, ATAQUE, s_d1
+    8'b11111111, dp_vida, ATAQUE, s_d1
   );
 
   // mux da saida 2

@@ -28,18 +28,23 @@ module projeto(
   wire [6:0] matrizAtaque0, matrizAtaque1, matrizAtaque2, matrizAtaque3, matrizAtaque4; // matriz de ataque do jogador
   wire [6:0] matriz0, matriz1, matriz2, matriz3, matriz4; // bits que serao exibidos na matriz de leds
 
+  wire [2:0] contador_0_7; // contador de 0 a 7
+
   wire [2:0] vida; // contador de vida do usuario
   wire tem_vida;
 
   wire lm_w0;
   wire ligarMatriz; // habilita/desabilita matriz de leds
   wire DESLIGADO, PREPARACAO, ATAQUE; // estados do jogo
+  wire tem_vida; // verifica se a vida do usuario chegou a zero
   
   wire btn_l; // botao de confirmacao do ataque sem ruido
   
+  divisor_freq divisor_freq(clock_in, clock_out);
+
   level_to_pulse level_to_pulse(btn0, clock_out[15], btn_l); // remove o ruido do botao
 
-  divisor_freq divisor_freq(clock_in, clock_out);
+  contador contador(clock_out[15], contador_0_7);
 
   decodificadorDeStatus decodificadorDeStatus(
     .A(ch7), .B(ch6),
@@ -81,14 +86,12 @@ module projeto(
   matriz_leds matriz_leds(
     .l0(l0), .l1(l1), .l2(l2), .l3(l3), .l4(l4), .l5(l5), .l6(l6),
     .c0(c0), .c1(c1), .c2(c2), .c3(c3), .c4(c4),
-    // clock de ~ 762 Hz
-    // pois dentro do modulo matriz_leds tem um divisor de frequencia secundario (contador)
-    .clock(clock_out[15]), .enable(ligarMatriz),
+    .contador(contador_0_7), .enable(ligarMatriz),
     .mapa0(matriz0), .mapa1(matriz1), .mapa2(matriz2), .mapa3(matriz3), .mapa4(matriz4)
   );
 
   display display(
-    clock_out[15],
+    contador_0_7,
     ATAQUE, PREPARACAO, DESLIGADO, // estados do jogo
     {ch5, ch4, ch3}, {ch2, ch1, ch0}, // coordenadas
     {ch1, ch0}, // mapa
