@@ -1,5 +1,5 @@
 /*
-	Contador de 0 até 4
+	Contador de 0 até 7
 	Entrada: clock
 	Saída: S
 */
