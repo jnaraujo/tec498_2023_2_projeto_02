@@ -37,7 +37,7 @@ module projeto(
   
   wire btn_l; // botao de confirmacao do ataque sem ruido
   
-  level_to_pulse(btn0, clock_out[15], btn_l);
+  level_to_pulse level_to_pulse(btn0, clock_out[15], btn_l); // remove o ruido do botao
 
   divisor_freq divisor_freq(clock_in, clock_out);
 
