@@ -1,9 +1,7 @@
 module decodificador_num(
-  enable,
   sel,
   a, b, c, d, e, f, g, dp
 );
-  input enable;
   input [2:0] sel;
   output a, b, c, d, e, f, g, dp;
 
@@ -16,37 +14,37 @@ module decodificador_num(
   // A = NOT a OR (b AND NOT c AND NOT d) OR ( NOT b AND NOT c AND d)
   and and0(w0, sel[2], ~sel[1], ~sel[0]); // b AND NOT c AND NOT d
   and and1(w1, ~sel[2], ~sel[1], sel[0]); // NOT b AND NOT c AND d
-  or or0(a, ~enable, w0, w1);
+  or or0(a, w0, w1);
 
   // B = NOT a OR (b AND c AND NOT d) OR (b AND NOT c AND d)
   and and2(w2, sel[2], sel[1], ~sel[0]); // b AND c AND NOT d
   and and3(w3, sel[2], ~sel[1], sel[0]); // b AND NOT c AND d
-  or or1(b, ~enable, w2, w3);
+  or or1(b, w2, w3);
 
   // C = NOT a OR ( NOT b AND c AND NOT d)
   and and4(w4, ~sel[2], sel[1], ~sel[0]); // NOT b AND c AND NOT d
-  or or2(c, ~enable, w4);
+  or or2(c, w4);
 
   // D = NOT a OR (b AND c AND d) OR (b AND NOT c AND NOT d) OR ( NOT b AND NOT c AND d)
   and and5(w5, sel[2], sel[1], sel[0]); // b AND c AND d
   and and6(w6, sel[2], ~sel[1], ~sel[0]); // b AND NOT c AND NOT d
   and and7(w7, ~sel[2], ~sel[1], sel[0]); // NOT b AND NOT c AND d
-  or or3(d, ~enable, w5, w6, w7);
+  or or3(d, w5, w6, w7);
 
   // E = NOT a OR (b AND NOT c) OR d
   and and8(w8, sel[2], ~sel[1]); // b AND NOT c
-  or or4(e, ~enable, w8, sel[0]);
+  or or4(e, w8, sel[0]);
 
   // F = NOT a OR ( NOT b AND c) OR ( NOT b AND d) OR (c AND d)
   and and9(w9, ~sel[2], sel[1]); // NOT b AND c
   and and10(w10, ~sel[2], sel[0]); // NOT b AND d
   and and11(w11, sel[1], sel[0]); // c AND d
-  or or5(f, ~enable, w9, w10, w11);
+  or or5(f, w9, w10, w11);
 
   // G = NOT a OR (b AND c AND d) OR ( NOT b AND NOT c)
   and and12(w12, sel[2], sel[1], sel[0]); // b AND c AND d
   and and13(w13, ~sel[2], ~sel[1]); // NOT b AND NOT c
-  or or6(g, ~enable, w12, w13);
+  or or6(g, w12, w13);
 
   // DP = 1
   assign dp = 1'b1;
