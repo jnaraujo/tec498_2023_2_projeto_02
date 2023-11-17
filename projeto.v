@@ -30,8 +30,7 @@ module projeto(
 
   wire [2:0] contador_0_7; // contador de 0 a 7
 
-  wire [2:0] vida; // contador de vida do usuario
-  wire tem_vida;
+  wire [1:0] vida; // contador de vida do usuario
 
   wire lm_w0;
   wire ligarMatriz; // habilita/desabilita matriz de leds
@@ -50,10 +49,11 @@ module projeto(
     .A(ch7), .B(ch6),
     .DESLIGADO(DESLIGADO), .PREPARACAO(PREPARACAO), .ATAQUE(ATAQUE)
   );
+
+  and(tem_vida, ~vida[1], ~vida[0]); // verifica se a vida do usuario chegou a zero
   
-  or or_vida(tem_vida, vida[2], vida[1], vida[0]); // verifica se o jogador ainda tem vida
   or or_lm0(lm_w0, PREPARACAO, ATAQUE); // vericica se o jogador esta em um dos modos de jogo
-  and and_lm0(ligarMatriz, lm_w0, ~tem_vida); // habilita a matriz de leds se o jogador ainda tem vida e esta em um dos modos de jogo
+  and and_lm0(ligarMatriz, lm_w0, tem_vida); // habilita a matriz de leds se o jogador ainda tem vida e esta em um dos modos de jogo
 
   seletor_mapa seletor_mapa(
     .sel({ch1, ch0}),
