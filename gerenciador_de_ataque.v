@@ -125,12 +125,12 @@ module gerenciador_de_ataque(
   and and2(w1, ~errou_ataque, enable);
 
   // se o jogador errou o ataque, o led vermelho acende
-  FF_jk(
+  FF_jk FF_jk1(
   	w0, ~w0, ~enable, confirmar, LED_R
   );
 
   // se o jogador acertou o ataque, o led verde acende
-  FF_jk(
+  FF_jk FF_jk2(
   	w1, ~w1, ~enable, confirmar, LED_G
   );
 
@@ -145,6 +145,7 @@ module TB_gerenciador_de_ataque();
   wire [6:0] mapa0, mapa1, mapa2, mapa3, mapa4;
   wire [6:0] matriz0, matriz1, matriz2, matriz3, matriz4;
   wire LED_R, LED_G, LED_B;
+  wire [1:0] vida;
 
   assign mapa0 = 7'b1110001;
   assign mapa1 = 7'b0100000;
@@ -152,8 +153,14 @@ module TB_gerenciador_de_ataque();
   assign mapa3 = 7'b0000000;
   assign mapa4 = 7'b1110000;
 
-  gerenciador_de_ataque gerenciador_de_ataque(.coordColuna(coordColuna), .coordLinha(coordLinha), .enable(enable), 
-  .confirmar(confirmar), .mapa0(mapa0), .mapa1(mapa1), .mapa2(mapa2), .mapa3(mapa3), .mapa4(mapa4), .matriz0(matriz0), .matriz1(matriz1), .matriz2(matriz2), .matriz3(matriz3), .matriz4(matriz4), .LED_R(LED_R), .LED_G(LED_G), .LED_B(LED_B));
+  gerenciador_de_ataque gerenciador_de_ataque(
+    coordColuna, coordLinha, enable,
+    confirmar,
+    mapa0, mapa1, mapa2, mapa3, mapa4,
+    matriz0, matriz1, matriz2, matriz3, matriz4,
+    LED_R, LED_G, LED_B,
+    vida
+  );
 
   initial begin
     enable = 1'b1;
