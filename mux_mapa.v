@@ -17,29 +17,21 @@ module mux_mapa(
 endmodule
 
 module TB_mux_mapa();
-  reg [2:0] sel;
-  reg [6:0] mapa0, mapa1, mapa2, mapa3, mapa4, mapa5, mapa6, mapa7;
+  reg [1:0] sel;
+  reg [6:0] mapa0, mapa1, mapa2, mapa3;
   wire [6:0] out;
 
-  mux_mapa mux_mapa(mapa0, mapa1, mapa2, mapa3, mapa4, mapa5, mapa6, mapa7, sel, out);
+  mux_mapa mux_mapa(mapa0, mapa1, mapa2, mapa3, sel, out);
 
   initial begin
     mapa0 = 7'b1000001;
     mapa1 = 7'b1100011;
     mapa2 = 7'b1110111;
     mapa3 = 7'b1111001;
-    mapa4 = 7'b1111101;
-    mapa5 = 7'b1111110;
-    mapa6 = 7'b1111111;
-    mapa7 = 7'b0111111;
 
-    sel = 3'b000; #10; // out = 1000001
-    sel = 3'b001; #10; // out = 1100011
-    sel = 3'b010; #10; // out = 1110111
-    sel = 3'b011; #10; // out = 1111001
-    sel = 3'b100; #10; // out = 1111101
-    sel = 3'b101; #10; // out = 1111110
-    sel = 3'b110; #10; // out = 1111111
-    sel = 3'b111; #10; // out = 0111111
+    sel = 3'b00; #10; // out = 1000001
+    sel = 3'b01; #10; // out = 1100011
+    sel = 3'b10; #10; // out = 1110111
+    sel = 3'b11; #10; // out = 1111001
   end
 endmodule
