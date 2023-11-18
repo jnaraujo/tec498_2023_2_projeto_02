@@ -32,7 +32,7 @@ module projeto(
 
   wire [1:0] vida; // contador de vida do usuario
 
-  wire lm_w0;
+  wire lm_w0; // verifica se está em preparacao ou ataque
   wire ligarMatriz; // habilita/desabilita matriz de leds
   wire DESLIGADO, PREPARACAO, ATAQUE; // estados do jogo
   wire tem_vida; // verifica se a vida do usuario chegou a zero
@@ -50,7 +50,7 @@ module projeto(
     .DESLIGADO(DESLIGADO), .PREPARACAO(PREPARACAO), .ATAQUE(ATAQUE)
   );
 
-  and(tem_vida, ~vida[1], ~vida[0]); // verifica se a vida do usuario chegou a zero
+  or or_vida(tem_vida, ~vida[1], ~vida[0]); // verifica se a vida do usuario chegou a zero; a vida é zero quando vida = 11
   
   or or_lm0(lm_w0, PREPARACAO, ATAQUE); // vericica se o jogador esta em um dos modos de jogo
   and and_lm0(ligarMatriz, lm_w0, tem_vida); // habilita a matriz de leds se o jogador ainda tem vida e esta em um dos modos de jogo
