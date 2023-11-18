@@ -47,7 +47,7 @@ module decod_col(
   assign dp = 1'b1;
 endmodule
 
-module TB_decod_col();-
+module TB_decod_col();
   reg [2:0] sel;
 
   wire a, b, c, d, e, f, g, dp;
