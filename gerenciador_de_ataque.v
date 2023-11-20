@@ -17,6 +17,7 @@ module gerenciador_de_ataque(
   wire igual0, igual1, igual2, igual3, igual4; // verifica se o jogador acertou o alvo
   wire errou_ataque; // verifica se o jogador errou o alvo
   wire diminuir_vida; // diminui a vida do usuario
+  wire controle_vida;
 
   initial begin
     // inicializa a matriz de leds
@@ -114,11 +115,12 @@ module gerenciador_de_ataque(
   // se ele acertou o alvo, errou_ataque vai ser 0
   // ja que o mapa sera diferente
   and and0(errou_ataque, igual0, igual1, igual2, igual3, igual4);
-
-  and and3(diminuir_vida, errou_ataque, confirmar, enable);
+  
+  // se ele errou o alvo, errou_ataque vai ser 1
+  FF_d ff_vida(errou_ataque,confirmar,controle_vida);
+  
   // contador de vida do usuario
-  contador_vida contador_vida(.clock(diminuir_vida), .reset(~enable), .S(vida));
-
+  contador_vida contador_vida(.clock(controle_vida && confirmar), .reset(~enable), .S(vida));
 
   // controla os leds de status
   and and1(w0, errou_ataque, enable);
