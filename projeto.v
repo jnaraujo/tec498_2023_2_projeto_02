@@ -30,7 +30,7 @@ module projeto(
 
   wire [2:0] contador_0_5; // contador de 0 a 5
 
-  wire [1:0] vida; // contador de vida do usuario
+  wire [2:0] vida; // contador de vida do usuario
 
   wire lm_w0; // verifica se está em preparacao ou ataque
   wire ligarMatriz; // habilita/desabilita matriz de leds

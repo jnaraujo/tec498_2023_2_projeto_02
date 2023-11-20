@@ -12,7 +12,7 @@ module gerenciador_de_ataque(
 
   output reg [6:0] matriz0, matriz1, matriz2, matriz3, matriz4; // mapa atual de bits da matriz de leds
   output LED_R, LED_G, LED_B; // leds de status
-  output [1:0] vida; // contador de vida do usuario
+  output [2:0] vida; // contador de vida do usuario
 
   wire igual0, igual1, igual2, igual3, igual4; // verifica se o jogador acertou o alvo
   wire errou_ataque; // verifica se o jogador errou o alvo
