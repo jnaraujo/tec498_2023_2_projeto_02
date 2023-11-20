@@ -50,13 +50,11 @@ module projeto(
     .DESLIGADO(DESLIGADO), .PREPARACAO(PREPARACAO), .ATAQUE(ATAQUE)
   );
 
-  or or_vida(tem_vida, ~vida[1], ~vida[0]); // verifica se a vida do usuario chegou a zero; a vida é zero quando vida = 11
-  
   or or_lm0(lm_w0, PREPARACAO, ATAQUE); // vericica se o jogador esta em um dos modos de jogo
   and and_lm0(ligarMatriz, lm_w0, tem_vida); // habilita a matriz de leds se o jogador ainda tem vida e esta em um dos modos de jogo
 
   seletor_mapa seletor_mapa(
-    .sel({ch1, ch0}),
+    .sel({ch2, ch1, ch0}),
     .confirmar(~btn0), .enable(PREPARACAO),
     .mapaTemp0(matrizSelTemp0), .mapaTemp1(matrizSelTemp1), .mapaTemp2(matrizSelTemp2), .mapaTemp3(matrizSelTemp3), .mapaTemp4(matrizSelTemp4),
     .mapa0(mapa0), .mapa1(mapa1), .mapa2(mapa2), .mapa3(mapa3), .mapa4(mapa4)
@@ -70,7 +68,7 @@ module projeto(
     .mapa0(mapa0), .mapa1(mapa1), .mapa2(mapa2), .mapa3(mapa3), .mapa4(mapa4),
     .matriz0(matrizAtaque0), .matriz1(matrizAtaque1), .matriz2(matrizAtaque2), .matriz3(matrizAtaque3), .matriz4(matrizAtaque4),
     .LED_R(LED_R), .LED_G(LED_G), .LED_B(LED_B),
-    .vida(vida)
+    .vida(vida), .tem_vida(tem_vida)
   );
 
   // seleciona qual dos mapas dever ser exibido na matriz de leds
@@ -94,7 +92,7 @@ module projeto(
     contador_0_5,
     ATAQUE, PREPARACAO, DESLIGADO, // estados do jogo
     {ch5, ch4, ch3}, {ch2, ch1, ch0}, // coordenadas
-    {ch1, ch0}, // mapa
+    {ch2, ch1, ch0}, // mapa
     vida, // vida
     a, b, c, d, e, f, g, dp,
     d0, d1, d2, d3

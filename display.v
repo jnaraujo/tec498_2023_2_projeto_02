@@ -11,7 +11,7 @@ module display(
   input [1:0] contador;
   input ATAQUE, PREPARACAO, DESLIGADO;
   input [2:0] coordColuna, coordLinha;
-  input [1:0] mapa;
+  input [2:0] mapa;
   input [2:0] vida;
 
   output a, b, c, d, e, f, g, dp;

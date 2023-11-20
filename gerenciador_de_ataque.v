@@ -4,7 +4,7 @@ module gerenciador_de_ataque(
   mapa0, mapa1, mapa2, mapa3, mapa4,
   matriz0, matriz1, matriz2, matriz3, matriz4,
   LED_R, LED_G, LED_B,
-  vida
+  vida, tem_vida
 );
   input [2:0] coordColuna, coordLinha; // coluna e linha da matriz de leds
   input enable, confirmar; // habilita a matriz de leds e confirma a selecao
@@ -13,6 +13,7 @@ module gerenciador_de_ataque(
   output reg [6:0] matriz0, matriz1, matriz2, matriz3, matriz4; // mapa atual de bits da matriz de leds
   output LED_R, LED_G, LED_B; // leds de status
   output [2:0] vida; // contador de vida do usuario
+  output tem_vida; // se o jogador tem vida
 
   wire igual0, igual1, igual2, igual3, igual4; // verifica se o jogador acertou o alvo
   wire errou_ataque; // verifica se o jogador errou o alvo
@@ -121,10 +122,12 @@ module gerenciador_de_ataque(
   
   // contador de vida do usuario
   contador_vida contador_vida(.clock(controle_vida && confirmar), .reset(~enable), .S(vida));
+	
+  or or_vida(tem_vida, ~vida[2], ~vida[1], ~vida[0]); // verifica se a vida do usuario chegou a zero; a vida é zero quando vida = 11
 
   // controla os leds de status
-  and and1(w0, errou_ataque, enable);
-  and and2(w1, ~errou_ataque, enable);
+  and and1(w0, errou_ataque, enable, tem_vida);
+  and and2(w1, ~errou_ataque, enable, tem_vida);
 
   // se o jogador errou o ataque, o led vermelho acende
   FF_jk FF_jk1(
@@ -135,8 +138,8 @@ module gerenciador_de_ataque(
   FF_jk FF_jk2(
   	w1, ~w1, ~enable, confirmar, LED_G
   );
-
-  assign LED_B = 1'b0; // led azul sempre desligado
+  
+  and and_led_b(LED_B, ~tem_vida); // liga o led azul se nao tiver vida
 endmodule
 
 
