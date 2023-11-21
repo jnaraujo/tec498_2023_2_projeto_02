@@ -20,7 +20,7 @@ module projeto(
   output LED_R, LED_G, LED_B; // leds de status
 
   input clock_in; // clock
-  wire [17:0] clock_out; // clock dividido
+  wire [15:0] clock_out; // clock dividido
 
   wire [6:0] mapa0, mapa1, mapa2, mapa3, mapa4; // mapa final do jogo
 
@@ -30,7 +30,7 @@ module projeto(
 
   wire [2:0] contador_0_5; // contador de 0 a 5
 
-  wire [2:0] vida; // contador de vida do usuario
+  wire [1:0] vida; // contador de vida do usuario
 
   wire lm_w0; // verifica se está em preparacao ou ataque
   wire ligarMatriz; // habilita/desabilita matriz de leds
@@ -41,7 +41,7 @@ module projeto(
   
   divisor_freq divisor_freq(clock_in, clock_out);
 
-  level_to_pulse level_to_pulse(btn0, clock_out[17], btn_l); // remove o ruido do botao
+  level_to_pulse level_to_pulse(~btn0, clock_out[15], btn_l); // remove o ruido do botao
 
   contador contador(clock_out[15], contador_0_5);
 
@@ -54,8 +54,8 @@ module projeto(
   and and_lm0(ligarMatriz, lm_w0, tem_vida); // habilita a matriz de leds se o jogador ainda tem vida e esta em um dos modos de jogo
 
   seletor_mapa seletor_mapa(
-    .sel({ch2, ch1, ch0}),
-    .confirmar(~btn0), .enable(PREPARACAO),
+    .sel({ch1, ch0}),
+    .confirmar(btn_l), .enable(PREPARACAO),
     .mapaTemp0(matrizSelTemp0), .mapaTemp1(matrizSelTemp1), .mapaTemp2(matrizSelTemp2), .mapaTemp3(matrizSelTemp3), .mapaTemp4(matrizSelTemp4),
     .mapa0(mapa0), .mapa1(mapa1), .mapa2(mapa2), .mapa3(mapa3), .mapa4(mapa4)
   );
@@ -64,7 +64,7 @@ module projeto(
   gerenciador_de_ataque gerenciador_de_ataque(
     .coordColuna({ch5, ch4, ch3}),
     .coordLinha({ch2, ch1, ch0}), .enable(ATAQUE),
-    .confirmar(~btn_l),
+    .confirmar(btn_l),
     .mapa0(mapa0), .mapa1(mapa1), .mapa2(mapa2), .mapa3(mapa3), .mapa4(mapa4),
     .matriz0(matrizAtaque0), .matriz1(matrizAtaque1), .matriz2(matrizAtaque2), .matriz3(matrizAtaque3), .matriz4(matrizAtaque4),
     .LED_R(LED_R), .LED_G(LED_G), .LED_B(LED_B),
@@ -92,7 +92,7 @@ module projeto(
     contador_0_5,
     ATAQUE, PREPARACAO, DESLIGADO, // estados do jogo
     {ch5, ch4, ch3}, {ch2, ch1, ch0}, // coordenadas
-    {ch2, ch1, ch0}, // mapa
+    {ch1, ch0}, // mapa
     vida, // vida
     a, b, c, d, e, f, g, dp,
     d0, d1, d2, d3
