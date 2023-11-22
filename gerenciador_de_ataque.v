@@ -47,6 +47,10 @@ module gerenciador_de_ataque(
   mux_2mapas_x1 mux4(matriz4, mapa4, c4, tempCol4);
 
   // seleciona qual linha da matriz de leds sera atualizada
+  // a partir dele é possivel copiar o valor do mapa real para o mapa
+  // que irá para o display.
+  // por exemplo: se na posição a2 do mapa real tiver 1, o valor 1
+  // sera copiado para outMapa
   mux_2x1 mux5(matriz0[0], tempCol0[0], l0, outMapa0[0]);
   mux_2x1 mux6(matriz0[1], tempCol0[1], l1, outMapa0[1]);
   mux_2x1 mux7(matriz0[2], tempCol0[2], l2, outMapa0[2]);
@@ -86,6 +90,8 @@ module gerenciador_de_ataque(
   mux_2x1 mux37(matriz4[4], tempCol4[4], l4, outMapa4[4]);
   mux_2x1 mux38(matriz4[5], tempCol4[5], l5, outMapa4[5]);
   mux_2x1 mux39(matriz4[6], tempCol4[6], l6, outMapa4[6]);
+
+  ///////////////////////////////////////////////////////////////
 
   always @(posedge confirmar or negedge enable) begin
     if (~enable) begin
