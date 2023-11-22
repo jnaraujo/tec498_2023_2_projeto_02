@@ -43,7 +43,7 @@ module projeto(
 
   level_to_pulse level_to_pulse(~btn0, clock_out[15], btn_l); // remove o ruido do botao
 
-  contador contador(clock_out[15], contador);
+  contador contador0(clock_out[15], contador);
 
   decodificadorDeStatus decodificadorDeStatus(
     .A(ch7), .B(ch6),
