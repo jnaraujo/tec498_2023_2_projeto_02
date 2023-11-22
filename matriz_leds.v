@@ -5,7 +5,7 @@ module matriz_leds(
   mapa0, mapa1, mapa2, mapa3, mapa4
 );
   output l0, l1, l2, l3, l4, l5, l6, c0, c1, c2, c3, c4; // linhas e colunas da matriz de leds
-  input [2:0] contador; // contador de 0 a 7
+  input [2:0] contador; // contador de 0 a 4
   input [6:0] mapa0, mapa1, mapa2, mapa3, mapa4; // mapas de bits da matriz de leds
   input enable; // habilita/desabilita matriz de leds
 
