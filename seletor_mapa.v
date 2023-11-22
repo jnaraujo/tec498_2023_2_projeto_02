@@ -34,7 +34,7 @@ module seletor_mapa(
 endmodule
 
 module TB_Seletor_Mapa();
-  reg [2:0] sel;
+  reg [1:0] sel;
   reg confirmar, enable;
 
   wire [6:0] mapa0, mapa1, mapa2, mapa3, mapa4;
@@ -46,35 +46,30 @@ module TB_Seletor_Mapa();
     confirmar = 1'b0;
     enable = 1'b1;
 
-    sel = 3'b000; #10; // mapaTemp0 = 0000100; mapaTemp1 = 0001100; mapaTemp2 = 1000101; mapaTemp3 = 1110001; mapaTemp4 = 1000011;
-    sel = 3'b001; confirmar = 1'b1 ;#10; // mapaTemp0 = 1110000; mapaTemp1 = 0100000; mapaTemp2 = 0100000; mapaTemp3 = 1000010; mapaTemp4 = 1110111;
+    sel = 3'b00; #10;
+    sel = 3'b01; confirmar = 1'b1 ;#10;
 
-    confirmar = 1'b0; // copia o valor do mapaTemp para o mapa
+    confirmar = 1'b0; #10;
 
-    sel = 3'b010; #10; // mapaTemp0 = 1110111; mapaTemp1 = 1000010; mapaTemp2 = 0100000; mapaTemp3 = 0100000; mapaTemp4 = 1110000;
-    sel = 3'b011; #10; // mapaTemp0 = 0000111; mapaTemp1 = 0100001; mapaTemp2 = 0111000; mapaTemp3 = 0100010; mapaTemp4 = 0000111;
-    sel = 3'b100; confirmar = 1'b1; #10; // mapaTemp0 = 0000111; mapaTemp1 = 0000010; mapaTemp2 = 1000000; mapaTemp3 = 1110001; mapaTemp4 = 1000111;
+    sel = 3'b10; #10;
+    sel = 3'b11; #10;
 
-    confirmar = 1'b0; // copia o valor do mapaTemp para o mapa
+    confirmar = 1'b1; #10;
+    confirmar = 1'b0; #10;
 
-    sel = 3'b101; #10; // mapaTemp0 = 1000000; mapaTemp1 = 1100000; mapaTemp2 = 1000010; mapaTemp3 = 0010010; mapaTemp4 = 1110111;
-    sel = 3'b110; #10; // mapaTemp0 = 0111000; mapaTemp1 = 0001001; mapaTemp2 = 0010011; mapaTemp3 = 0010001; mapaTemp4 = 0111000;
-    sel = 3'b111; confirmar = 1'b1; #10; // mapaTemp0 = 1000000; mapaTemp1 = 1100111; mapaTemp2 = 1000010; mapaTemp3 = 0010010; mapaTemp4 = 1110000;
+    sel = 3'b01; #10;
+    confirmar = 1'b1; #10;
 
-    confirmar = 1'b0; // copia o valor do mapaTemp para o mapa
+    confirmar = 1'b0; #10;
 
-    // testar com enable = 0
-    enable = 0;
-    sel = 3'b001; #10; confirmar = 1'b1 ;#10; // mapaTemp0 = 1110000; mapaTemp1 = 0100000; mapaTemp2 = 0100000; mapaTemp3 = 1000010; mapaTemp4 = 1110111;
+    enable = 1'b0; #10;
+    sel = 3'b10; #10;
+    sel = 3'b11; #10;
 
-    confirmar = 1'b0;
+    confirmar = 1'b1; #10;
 
-    sel = 3'b010; #10; // mapaTemp0 = 1110111; mapaTemp1 = 1000010; mapaTemp2 = 0100000; mapaTemp3 = 0100000; mapaTemp4 = 1110000;
-    sel = 3'b011; #10; confirmar = 1'b1 ;#10; // mapaTemp0 = 0000111; mapaTemp1 = 0100001; mapaTemp2 = 0111000; mapaTemp3 = 0100010; mapaTemp4 = 0000111;
-
-    confirmar = 1'b0;
-
-
+    sel = 3'b00; #10;
+    sel = 3'b01; #10;
 
   end
 endmodule
